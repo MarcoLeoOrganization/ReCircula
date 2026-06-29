@@ -33,7 +33,7 @@ export function AppRouter() {
           <Route path="/" element={<App />} />
         </Route>
 
-        {/* ── Rutas privadas: solo ADMINISTRADOR ───────────────────────── */}
+        {/* ── Rutas privadas: solo ADMINISTRADOR ─────────────────────────── */}
         <Route element={<ProtectedRoute allowedRoles={['ADMINISTRADOR']} />}>
           <Route path="/admin/dashboard" element={<div>Panel Admin</div>} />
         </Route>

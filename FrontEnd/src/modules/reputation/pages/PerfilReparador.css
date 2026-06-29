@@ -1,0 +1,272 @@
+.prf-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.prf-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary, #2d6a4f);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 0;
+  margin-bottom: 24px;
+  transition: gap 0.2s;
+}
+
+.prf-back:hover { gap: 10px; }
+
+.prf-loading,
+.prf-error {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-secondary);
+}
+
+/* Hero */
+.prf-hero {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.prf-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2d6a4f, #52b788);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prf-hero-info { flex: 1; }
+
+.prf-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.prf-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.prf-tech-name {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0 0 10px;
+}
+
+.prf-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.prf-rating-num {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #d97706;
+  margin-left: 6px;
+}
+
+/* Stats */
+.prf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.prf-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.prf-stat-num {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary, #2d6a4f);
+}
+
+.prf-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+/* Sections */
+.prf-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.prf-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+}
+
+.prf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prf-tag {
+  font-size: 0.82rem;
+  background: rgba(45, 106, 79, 0.07);
+  color: var(--primary, #2d6a4f);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.prf-no-reviews {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 20px 0 8px;
+  margin: 0;
+}
+
+.prf-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prf-review-card {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: var(--bg-color, #f8f4ee);
+}
+
+.prf-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.prf-review-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prf-review-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2d6a4f, #52b788);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prf-review-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.prf-review-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.prf-review-comment {
+  font-size: 0.87rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* CTA Banner */
+.prf-cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.06), rgba(82, 183, 136, 0.06));
+  border: 1px solid rgba(45, 106, 79, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-top: 8px;
+}
+
+.prf-cta-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--primary);
+}
+
+.prf-cta-text strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.prf-cta-text p {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}

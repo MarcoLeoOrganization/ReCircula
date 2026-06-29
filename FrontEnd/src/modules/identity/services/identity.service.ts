@@ -7,6 +7,7 @@ export interface RegisterPayload {
   nombre: string;
   email: string;
   password: string;
+  rol: 'USUARIO_GENERAL' | 'REPARADOR_VERIFICADO';
 }
 
 export interface LoginPayload {
@@ -55,10 +56,13 @@ export const verifyEmail = (token: string) =>
     .then((r) => r.data);
 
 /** RF-01.2 — Login: devuelve usuario y JWT */
-export const login = (payload: LoginPayload) =>
-  axiosClient
-    .post<LoginResponse>('/identity/login', payload)
+export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
+  const data = await axiosClient
+    .post<{ usuario: AuthUser; token: string }>('/identity/login', payload)
     .then((r) => r.data);
+  // El backend devuelve { usuario, token } — lo normalizamos a { usuario, accessToken }
+  return { usuario: data.usuario, accessToken: data.token };
+};
 
 /** RF-01.3 — Solicitar enlace de recuperación de contraseña */
 export const forgotPassword = (payload: ForgotPasswordPayload) =>

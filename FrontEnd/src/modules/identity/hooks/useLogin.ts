@@ -28,6 +28,8 @@ export function useLogin() {
         default:
           navigate('/');
       }
+      // Todos los roles van a la app principal — el dashboard adapta su contenido al rol
+      navigate('/');
     } catch (err) {
       setError(extractErrorMessage(err));
     } finally {

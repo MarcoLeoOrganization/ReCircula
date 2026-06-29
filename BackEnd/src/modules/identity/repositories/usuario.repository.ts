@@ -34,4 +34,12 @@ export class UsuarioRepository {
   async actualizarPorId(id: string, datos: Partial<Usuario>): Promise<void> {
     await this.repo.update(id, datos);
   }
+
+  async crearPerfilReparadorVacio(usuarioId: string): Promise<void> {
+    await this.repo.manager.query(
+      `INSERT INTO perfiles_reparador (usuario_id, verificado, especialidades, puntuacion, reparaciones_documentadas)
+       VALUES ($1, false, '{}', 0, 0)`,
+      [usuarioId]
+    );
+  }
 }

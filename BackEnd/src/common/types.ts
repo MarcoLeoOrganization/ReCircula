@@ -1,7 +1,7 @@
 export enum RolUsuario {
-  USUARIO_GENERAL = 'USUARIO_GENERAL',
+  USUARIO_GENERAL   = 'USUARIO_GENERAL',
   REPARADOR_VERIFICADO = 'REPARADOR_VERIFICADO',
-  ADMINISTRADOR = 'ADMINISTRADOR',
+  ADMINISTRADOR        = 'ADMINISTRADOR',
 }
 
 export enum EstadoPublicacion {
@@ -20,10 +20,16 @@ export enum ModalidadIntercambio {
 }
 
 export enum EstadoTransaccion {
-  PENDIENTE = 'PENDIENTE',
+  PENDIENTE  = 'PENDIENTE',
   EN_PROCESO = 'EN_PROCESO',
   COMPLETADA = 'COMPLETADA',
-  CANCELADA = 'CANCELADA',
+  CANCELADA  = 'CANCELADA',
+}
+
+export enum EstadoVerificacion {
+  PENDIENTE  = 'PENDIENTE',
+  APROBADA   = 'APROBADA',
+  RECHAZADA  = 'RECHAZADA',
 }
 
 export enum TipoEntradaHistorial {
@@ -98,4 +104,12 @@ export interface TransactionAudit {
   usuarioResponsableId: string;
   notas?: string;
   fechaCambio: string | Date;
+}
+export enum TipoNotificacion {
+  INTERES_EN_PUBLICACION      = 'INTERES_EN_PUBLICACION',
+  CAMBIO_ESTADO_TRANSACCION   = 'CAMBIO_ESTADO_TRANSACCION',
+  NUEVA_PUBLICACION_FAVORITA  = 'NUEVA_PUBLICACION_FAVORITA',
+  CALIFICACION_RECIBIDA       = 'CALIFICACION_RECIBIDA',
+  SOLICITUD_VERIFICACION      = 'SOLICITUD_VERIFICACION',
+  VERIFICACION_APROBADA       = 'VERIFICACION_APROBADA',
 }

@@ -11,10 +11,11 @@ import { PublicationsModule } from './modules/publications/publications.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 import { HistoryModule } from './modules/history/history.module';
 
-// Los siguientes módulos se implementan en futuros sprints:
-// import { MatchmakingModule }    from './modules/matchmaking/matchmaking.module';
-// import { ReputationModule }     from './modules/reputation/reputation.module';
+import { MatchmakingModule }    from './modules/matchmaking/matchmaking.module';
+import { ReputationModule }     from './modules/reputation/reputation.module';
+// import { HistoryModule }        from './modules/history/history.module';
 // import { NotificationsModule }  from './modules/notifications/notifications.module';
+import { ArcoModule } from './modules/arco/arco.module';
 
 @Module({
   imports: [
@@ -43,11 +44,17 @@ import { HistoryModule } from './modules/history/history.module';
     // ── RF-02: Gestión de publicaciones y artículos ──────────────────────────
     PublicationsModule,
 
+    // ── RF-03: Matchmaking geoespacial ───────────────────────────────────────
+    MatchmakingModule,
+
     // ── RF-04: Gestión de transacciones e intercambios ───────────────────────
     TransactionsModule,
 
-    // ── RF-05: Historial de vida del producto ────────────────────────────────
-    HistoryModule,
+    // ── RF-06: Calificación y reputación ─────────────────────────────────────
+    ReputationModule,
+
+    // ── RF-08: Derechos ARCO del Usuario ─────────────────────────────────────
+    ArcoModule,
   ],
 })
 export class AppModule {}

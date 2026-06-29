@@ -49,6 +49,11 @@ export class MailService {
     );
   }
 
+  // ── RF-08 ───────────────────────────────────────────────────────────────
+  async enviarDatosArco(to: string, htmlContent: string): Promise<void> {
+    await this.send(to, 'Tus datos personales (Derecho de Acceso ARCO)', htmlContent);
+  }
+
   private async send(to: string, subject: string, html: string): Promise<void> {
     try {
       const from = this.config.get<string>('mail.from');

@@ -56,6 +56,8 @@ import { IdentityController } from './identity.controller';
     // inyectar el guard y verificar sesiones
     JwtModule,
     IdentityService,
+    MailService,
+    UsuarioRepository,
   ],
 })
 export class IdentityModule {}

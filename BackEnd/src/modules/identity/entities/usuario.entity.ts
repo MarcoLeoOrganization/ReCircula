@@ -8,8 +8,8 @@ import {
 
 export enum RolUsuario {
   USUARIO_GENERAL = 'USUARIO_GENERAL',
-  VENDEDOR_REPARADOR = 'REPARADOR_VERIFICADO',
-  ADMIN = 'ADMINISTRADOR',
+  REPARADOR_VERIFICADO = 'REPARADOR_VERIFICADO',
+  ADMINISTRADOR = 'ADMINISTRADOR',
 }
 
 @Entity('usuarios')
@@ -40,6 +40,9 @@ export class Usuario {
 
   @Column({ default: true })
   activo: boolean;
+
+  @Column({ name: 'permitir_matchmaking', default: true })
+  permitirMatchmaking: boolean;
 
   @CreateDateColumn({ name: 'fecha_registro', type: 'timestamptz' })
   fechaRegistro: Date;

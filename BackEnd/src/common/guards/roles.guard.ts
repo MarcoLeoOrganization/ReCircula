@@ -1,4 +1,4 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { RolUsuario } from '../../modules/identity/entities/usuario.entity';
 
@@ -30,6 +30,13 @@ export class RolesGuard implements CanActivate {
       .getRequest<{ user?: { rol: RolUsuario } }>();
 
     // Y verificamos de forma segura
-    return rolesRequeridos.includes(request.user?.rol as RolUsuario);
+    const tieneRol = rolesRequeridos.includes(request.user?.rol as RolUsuario);
+    if (!tieneRol) {
+      throw new ForbiddenException(
+        'No tienes los permisos ni el rol requerido para realizar esta acción.',
+      );
+    }
+
+    return true;
   }
 }

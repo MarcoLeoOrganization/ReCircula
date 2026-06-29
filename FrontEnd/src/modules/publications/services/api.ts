@@ -165,6 +165,36 @@ export const publicationsApi = {
     }
     return res.json()
   },
+
+  async getHistoryByPublicationId(publicationId: string) {
+    const res = await fetch(`${API_BASE_URL}/history/publication/${publicationId}`)
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.message || 'Error al obtener el historial')
+    }
+    return res.json()
+  },
+
+  async addRepairEntry(
+    publicationId: string,
+    data: { descripcion: string; piezasReemplazadas?: string[]; estadoResultante?: string },
+    token: string
+  ) {
+    const res = await fetch(`${API_BASE_URL}/history/publication/${publicationId}/repair`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.message || 'Error al registrar la reparación')
+    }
+    return res.json()
+  },
 }
 
 export const matchmakingApi = {

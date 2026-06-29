@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { TransactionsRepository } from './repositories/transactions.repository';
 import { PublicationsRepository } from '../publications/repositories/publications.repository';
+import { HistoryService } from '../history/history.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { Transaction } from './entities/transaction.entity';
 import {
@@ -19,6 +20,7 @@ export class TransactionsService {
   constructor(
     private readonly repo: TransactionsRepository,
     private readonly publicationsRepo: PublicationsRepository,
+    private readonly historyService: HistoryService,
   ) {}
 
   async proponer(
@@ -217,6 +219,15 @@ export class TransactionsService {
       await this.publicationsRepo.update(guardada.publicacionId, {
         estado: EstadoPublicacion.INTERCAMBIADO,
       });
+
+      // Registrar en el historial del producto
+      await this.historyService.registerExchangeEntry(
+        guardada.publicacionId,
+        guardada.id,
+        `Intercambio completado bajo la modalidad ${guardada.modalidad}.`,
+        guardada.iniciadorId,
+        guardada.receptorId,
+      );
 
       // Auditoría de completada
       await this.repo.saveAuditLog({

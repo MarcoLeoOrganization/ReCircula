@@ -265,7 +265,14 @@ function App() {
         />
       )}
 
-      {view === 'tratos' && <TransactionsDashboard />}
+      {view === 'tratos' && (
+        <TransactionsDashboard
+          onViewPublication={(id) => {
+            setActivePublicationId(id)
+            setView('details')
+          }}
+        />
+      )}
 
       {view === 'reparadores' && (
         <MatchmakingReparadores

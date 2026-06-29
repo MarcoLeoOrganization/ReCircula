@@ -15,20 +15,20 @@ async function setup() {
     await adminClient.connect();
     console.log('🔌 Conectado a base de datos "postgres"...');
 
-    // 1. Crear base de datos si no existe
-    const res = await adminClient.query(
-      "SELECT 1 FROM pg_database WHERE datname = 'ReCircula'"
-    );
+    console.log('Terminando conexiones activas y eliminando base de datos "ReCircula" si existe...');
+    await adminClient.query(`
+      REVOKE CONNECT ON DATABASE "ReCircula" FROM public;
+      SELECT pg_terminate_backend(pg_stat_activity.pid)
+      FROM pg_stat_activity
+      WHERE pg_stat_activity.datname = 'ReCircula' AND pid <> pg_backend_pid();
+    `).catch(() => {});
+    await adminClient.query('DROP DATABASE IF EXISTS "ReCircula";');
 
-    if (res.rows.length === 0) {
-      console.log('📦 Creando base de datos "ReCircula"...');
-      await adminClient.query('CREATE DATABASE "ReCircula";');
-      console.log('✅ Base de datos "ReCircula" creada.');
-    } else {
-      console.log('ℹ️ La base de datos "ReCircula" ya existe.');
-    }
+    console.log('Creando base de datos "ReCircula"...');
+    await adminClient.query('CREATE DATABASE "ReCircula";');
+    console.log('Base de datos "ReCircula" creada.');
   } catch (error) {
-    console.error('❌ Error al conectar a postgres / crear base de datos:', error);
+    console.error('Error al conectar a postgres / crear base de datos:', error);
     process.exit(1);
   } finally {
     await adminClient.end();
@@ -54,7 +54,7 @@ async function setup() {
 
     console.log('📜 Leyendo y ejecutando schema.sql...');
     const schemaSql = fs.readFileSync(schemaPath, 'utf8');
-    
+
     // Ejecutar todo el script SQL
     await dbClient.query(schemaSql);
     console.log('✅ Tablas, tipos, funciones y vistas creados exitosamente.');

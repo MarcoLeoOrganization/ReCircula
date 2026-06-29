@@ -139,8 +139,10 @@ export class IdentityService {
       );
 
     const token = this.firmarToken(usuario);
+    const tHash = this.hash(token);
+    console.log(`[DEBUG LOGIN] email=${usuario.email} tokenHash=${tHash}`);
     await this.registrarSesion(usuario.id, token, ip);
-
+    
     // En lugar de usar la variable '_' que enoja al linter, construimos el objeto limpio
     const datosUsuario = {
       id: usuario.id,
@@ -260,12 +262,20 @@ export class IdentityService {
 
     const fechaExpiracion = new Date(exp * 1000);
 
-    await this.sesiones.crear({
-      usuarioId,
-      tokenHash,
-      fechaExpiracion,
-      ipOrigen: ip ?? null,
-    });
+    try {
+      await this.sesiones.crear({
+        usuarioId,
+        tokenHash,
+        fechaExpiracion,
+        ipOrigen: ip ?? null,
+      });
+    } catch (err: any) {
+      if (err.code === '23505') {
+        this.logger.log(`[registrarSesion] Sesión ya registrada (duplicado ignorado): ${tokenHash}`);
+      } else {
+        throw err;
+      }
+    }
   }
   private async generarTokenVerificacion(usuarioId: string): Promise<string> {
     await this.tokens.invalidarPreviosDeUsuario(usuarioId);

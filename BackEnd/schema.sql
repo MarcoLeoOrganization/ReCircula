@@ -587,9 +587,9 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_historial_intercambio
-    BEFORE UPDATE ON transacciones
-    FOR EACH ROW EXECUTE FUNCTION fn_registrar_intercambio_en_historial();
+-- CREATE TRIGGER trg_historial_intercambio
+--     BEFORE UPDATE ON transacciones
+--     FOR EACH ROW EXECUTE FUNCTION fn_registrar_intercambio_en_historial();
 
 -- ── Trigger: recalcular puntuación del reparador al recibir calificación ─────
 CREATE OR REPLACE FUNCTION fn_actualizar_puntuacion_reparador()

@@ -58,6 +58,9 @@ export default function CreatePublication({
   // Silent Login para desarrollo (RF-01)
   useEffect(() => {
     const fetchToken = async () => {
+      const activeUserToken = localStorage.getItem('rc_token')
+      if (activeUserToken) return
+
       const token = localStorage.getItem('recircula_token')
       if (!token) {
         try {
@@ -198,7 +201,7 @@ export default function CreatePublication({
     setLoading(true)
     setError(null)
 
-    const token = localStorage.getItem('recircula_token')
+    const token = localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
     if (!token) {
       setError('Debes iniciar sesión para publicar.')
       setLoading(false)

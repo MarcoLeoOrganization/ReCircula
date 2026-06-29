@@ -15,7 +15,11 @@ import {
 import CalificacionModal from '../../reputation/pages/CalificacionModal'
 import './TransactionsDashboard.css'
 
-export default function TransactionsDashboard() {
+export default function TransactionsDashboard({
+  onViewPublication,
+}: {
+  onViewPublication?: (id: string) => void
+}) {
   const [transactions, setTransactions] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -223,7 +227,15 @@ export default function TransactionsDashboard() {
                       <span className="tx-mode">{getFormatModalidad(tx.modalidad)}</span>
                     </div>
 
-                    <h3 className="tx-title">
+                    <h3
+                      className="tx-title"
+                      onClick={() => {
+                        if (tx.publicacionId && onViewPublication) {
+                          onViewPublication(tx.publicacionId)
+                        }
+                      }}
+                      style={{ cursor: 'pointer', color: 'var(--primary)' }}
+                    >
                       {tx.publicacion?.titulo || 'Artículo no disponible'}
                     </h3>
 

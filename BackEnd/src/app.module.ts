@@ -9,6 +9,7 @@ import mailConfig from './config/mail.config';
 import { IdentityModule } from './modules/identity/identity.module';
 import { PublicationsModule } from './modules/publications/publications.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
+import { HistoryModule } from './modules/history/history.module';
 
 import { MatchmakingModule }    from './modules/matchmaking/matchmaking.module';
 import { ReputationModule }     from './modules/reputation/reputation.module';

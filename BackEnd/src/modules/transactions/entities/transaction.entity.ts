@@ -5,14 +5,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
   JoinColumn,
 } from 'typeorm';
 import { Usuario } from '../../identity/entities/usuario.entity';
 import { Publication } from '../../publications/entities/publication.entity';
+import { Calificacion } from '../../reputation/entities/calificacion.entity';
 import { EstadoTransaccion, ModalidadIntercambio } from '../../../common/types';
 
 @Entity('transacciones')
 export class Transaction {
+  @OneToMany(() => Calificacion, (c) => c.transaccion)
+  calificaciones: Calificacion[];
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -42,6 +42,7 @@ export class TypeOrmTransactionsRepository implements TransactionsRepository {
         publicacion: { publicador: true },
         iniciador: true,
         receptor: true,
+        calificaciones: true,
       },
       order: {
         fechaCreacion: 'DESC',

@@ -19,6 +19,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { RolUsuario } from './entities/usuario.entity';
 import { Usuario } from './entities/usuario.entity';
 
 @Injectable()
@@ -52,6 +53,10 @@ export class IdentityService {
       emailVerificado: false,
       activo: false, // inactivo hasta verificar correo
     });
+
+    if (dto.rol === RolUsuario.REPARADOR_VERIFICADO) {
+      await this.usuarios.crearPerfilReparadorVacio(usuario.id);
+    }
 
     const tokenPlano = await this.generarTokenVerificacion(usuario.id);
     await this.mail.enviarVerificacion(

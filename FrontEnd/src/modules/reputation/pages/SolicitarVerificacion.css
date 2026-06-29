@@ -1,0 +1,240 @@
+.sol-container {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.sol-success {
+  text-align: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 60px 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.sol-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.sol-success h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+
+.sol-success p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+/* prf-back is reused from PerfilReparador.css, declared here too in case */
+.prf-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary, #2d6a4f);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 0;
+  margin-bottom: 24px;
+  transition: gap 0.2s;
+}
+
+.prf-back:hover { gap: 10px; }
+
+.sol-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.sol-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sol-header-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(45, 106, 79, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sol-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.sol-sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sol-field {
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.sol-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.sol-required {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+.sol-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0 0 10px;
+}
+
+.sol-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  resize: vertical;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-color, #f8f4ee);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  line-height: 1.5;
+}
+
+.sol-textarea:focus {
+  outline: none;
+  border-color: var(--primary, #2d6a4f);
+}
+
+.sol-char-count {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 0.72rem;
+  color: var(--text-secondary, #9ca3af);
+}
+
+.sol-dropzone {
+  border: 2px dashed rgba(45, 106, 79, 0.35);
+  border-radius: 12px;
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.sol-dropzone:hover {
+  background: rgba(45, 106, 79, 0.04);
+  border-color: var(--primary, #2d6a4f);
+}
+
+.sol-dropzone p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.sol-dropzone span {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.sol-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.sol-preview-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-color);
+}
+
+.sol-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sol-remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.sol-remove-btn:hover { background: rgba(239, 68, 68, 0.85); }
+
+.sol-error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #dc2626;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.sol-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}

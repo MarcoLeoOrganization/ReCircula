@@ -10,10 +10,9 @@ import { IdentityModule } from './modules/identity/identity.module';
 import { PublicationsModule } from './modules/publications/publications.module';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 
-// Los siguientes módulos se implementan en futuros sprints:
+import { MatchmakingModule }    from './modules/matchmaking/matchmaking.module';
+import { ReputationModule }     from './modules/reputation/reputation.module';
 // import { HistoryModule }        from './modules/history/history.module';
- import { MatchmakingModule }    from './modules/matchmaking/matchmaking.module';
-// import { ReputationModule }     from './modules/reputation/reputation.module';
 // import { NotificationsModule }  from './modules/notifications/notifications.module';
 
 @Module({
@@ -43,11 +42,14 @@ import { TransactionsModule } from './modules/transactions/transactions.module';
     // ── RF-02: Gestión de publicaciones y artículos ──────────────────────────
     PublicationsModule,
 
-    // RF-03.
+    // ── RF-03: Matchmaking geoespacial ───────────────────────────────────────
     MatchmakingModule,
 
     // ── RF-04: Gestión de transacciones e intercambios ───────────────────────
     TransactionsModule,
+
+    // ── RF-06: Sistema de Reputación y Verificación ──────────────────────────
+    ReputationModule,
   ],
 })
 export class AppModule {}

@@ -200,3 +200,73 @@ export const matchmakingApi = {
   },
 }
 
+export const reputationApi = {
+  async crearCalificacion(
+    data: { transaccionId: string; puntuacion: number; comentario?: string },
+    token: string,
+  ) {
+    const res = await fetch(`${API_BASE_URL}/reputation/calificaciones`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(data),
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.message || 'Error al enviar calificación')
+    }
+    return res.json()
+  },
+
+  async getCalificaciones(usuarioId: string, token: string) {
+    const res = await fetch(`${API_BASE_URL}/reputation/calificaciones/${usuarioId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!res.ok) throw new Error('Error al obtener calificaciones')
+    return res.json()
+  },
+
+  async getPerfilReparador(reparadorId: string) {
+    const res = await fetch(`${API_BASE_URL}/reputation/reparadores/${reparadorId}/perfil`)
+    if (!res.ok) throw new Error('Perfil de reparador no encontrado')
+    return res.json()
+  },
+
+  async solicitarVerificacion(formData: FormData, token: string) {
+    const res = await fetch(`${API_BASE_URL}/reputation/verificacion/solicitar`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.message || 'Error al enviar solicitud de verificación')
+    }
+    return res.json()
+  },
+
+  async getSolicitudesPendientes(token: string) {
+    const res = await fetch(`${API_BASE_URL}/reputation/verificacion/pendientes`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!res.ok) throw new Error('Error al obtener solicitudes pendientes')
+    return res.json()
+  },
+
+  async revisarSolicitud(
+    id: string,
+    decision: 'APROBADA' | 'RECHAZADA',
+    notasAdmin: string | undefined,
+    token: string,
+  ) {
+    const res = await fetch(`${API_BASE_URL}/reputation/verificacion/${id}/revisar`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ decision, notasAdmin }),
+    })
+    if (!res.ok) {
+      const err = await res.json()
+      throw new Error(err.message || 'Error al revisar solicitud')
+    }
+    return res.json()
+  },
+}

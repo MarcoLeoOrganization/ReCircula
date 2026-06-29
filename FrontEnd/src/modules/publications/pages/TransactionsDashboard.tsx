@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useCallback } from 'react'
 import { publicationsApi } from '../services/api'
+import { useAuthStore } from '../../../store/authStore'
 import {
   Clock,
   CheckCircle,
@@ -9,7 +10,9 @@ import {
   Info,
   RefreshCw,
   MessageSquare,
+  Star,
 } from 'lucide-react'
+import CalificacionModal from '../../reputation/pages/CalificacionModal'
 import './TransactionsDashboard.css'
 
 export default function TransactionsDashboard() {
@@ -18,9 +21,11 @@ export default function TransactionsDashboard() {
   const [error, setError] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'received' | 'sent'>('received')
   const [processingId, setProcessingId] = useState<string | null>(null)
+  const [calModal, setCalModal] = useState<{ txId: string; contraparte: string } | null>(null)
 
-  const token = localStorage.getItem('recircula_token') || ''
-  const currentUserId = '00000000-0000-0000-0000-000000000001' // Tester user ID
+  const { token: authToken, user } = useAuthStore()
+  const token = authToken || ''
+  const currentUserId = user?.id || ''
 
   const fetchTransactions = useCallback(async () => {
     if (!token) {
@@ -311,11 +316,52 @@ export default function TransactionsDashboard() {
                       </button>
                     </>
                   )}
+                  {/* Acciones para COMPLETADA — Calificar */}
+                  {tx.estado === 'COMPLETADA' && (
+                    <>
+                      {tx.calificaciones?.some((c: any) => c.calificadorId === user?.id) ? (
+                        <button
+                          className="btn-primary-sm"
+                          disabled
+                          style={{ background: '#e5e7eb', color: '#9ca3af', borderColor: 'transparent', cursor: 'not-allowed' }}
+                        >
+                          <Star size={14} fill="#9ca3af" color="#9ca3af" /> Calificado
+                        </button>
+                      ) : (
+                        <button
+                          className="btn-primary-sm"
+                          style={{ background: 'rgba(217,119,6,0.9)', borderColor: 'transparent' }}
+                          onClick={() =>
+                            setCalModal({
+                              txId: tx.id,
+                              contraparte: isOwner
+                                ? tx.iniciador?.nombre || 'el interesado'
+                                : tx.receptor?.nombre || 'el propietario',
+                            })
+                          }
+                        >
+                          <Star size={14} fill="white" color="white" /> Calificar
+                        </button>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             )
           })}
         </div>
+      )}\n
+      {/* Modal de calificación */}
+      {calModal && (
+        <CalificacionModal
+          transaccionId={calModal.txId}
+          contraparte={calModal.contraparte}
+          onClose={() => setCalModal(null)}
+          onSuccess={() => {
+            setCalModal(null)
+            fetchTransactions()
+          }}
+        />
       )}
     </div>
   )

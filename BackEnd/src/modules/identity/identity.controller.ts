@@ -160,29 +160,29 @@ export class IdentityController {
     return user;
   }
 
-  // ── RF-01.4  Endpoint exclusivo de ADMIN ──────────────────────────
+  // ── RF-01.4  Endpoint exclusivo de ADMINISTRADOR ──────────────────
   @Get('admin/dashboard')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RolUsuario.ADMIN)
+  @Roles(RolUsuario.ADMINISTRADOR)
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'RF-01.4 — Solo ADMIN',
+    summary: 'RF-01.4 — Solo ADMINISTRADOR',
     description: 'Ejemplo de endpoint con control de acceso por rol.',
   })
   adminDashboard(@CurrentUser() user: { email: string; rol: string }) {
     return { mensaje: `Bienvenido al panel de administración, ${user.email}` };
   }
 
-  // ── RF-01.4  Endpoint exclusivo de VENDEDOR_REPARADOR ──────────────────
+  // ── RF-01.4  Endpoint exclusivo de REPARADOR_VERIFICADO ─────────────
   @Get('reparador/perfil')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(RolUsuario.VENDEDOR_REPARADOR, RolUsuario.ADMIN)
+  @Roles(RolUsuario.REPARADOR_VERIFICADO, RolUsuario.ADMINISTRADOR)
   @ApiBearerAuth()
   @ApiOperation({
-    summary: 'RF-01.4 — Solo VENDEDOR_REPARADOR o ADMIN',
+    summary: 'RF-01.4 — Solo REPARADOR_VERIFICADO o ADMINISTRADOR',
     description: 'Ejemplo de endpoint restringido a reparadores verificados.',
   })
   reparadorPerfil(@CurrentUser() user: { email: string; rol: string }) {
-    return { mensaje: `Panel de reparador para: ${user.email}` };
+    return { mensaje: `Perfil de reparador: ${user.email}` };
   }
 }

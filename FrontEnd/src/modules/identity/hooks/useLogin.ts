@@ -17,17 +17,8 @@ export function useLogin() {
       const { accessToken, usuario } = await loginService(payload);
       setSession(usuario, accessToken);
 
-      // Redirige según rol
-      switch (usuario.rol) {
-        case 'ADMIN':
-          navigate('/admin/dashboard');
-          break;
-        case 'VENDEDOR_REPARADOR':
-          navigate('/reparador/perfil');
-          break;
-        default:
-          navigate('/');
-      }
+      // Todos los roles van a la app principal — el dashboard adapta su contenido al rol
+      navigate('/');
     } catch (err) {
       setError(extractErrorMessage(err));
     } finally {

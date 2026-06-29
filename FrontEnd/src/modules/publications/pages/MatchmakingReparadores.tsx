@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useCallback } from 'react'
 import { matchmakingApi } from '../services/api'
-import { MapPin, Search, Star, Wrench, Info, CheckCircle } from 'lucide-react'
+import { MapPin, Search, Star, Wrench, Info, CheckCircle, ChevronRight } from 'lucide-react'
 import './MatchmakingReparadores.css'
+
+interface Props {
+  onVerPerfil?: (reparadorId: string) => void
+}
 
 const CATEGORIAS = [
   'Computadoras y Laptops',
@@ -19,7 +23,7 @@ const CATEGORIAS = [
   'Otros',
 ]
 
-export default function MatchmakingReparadores() {
+export default function MatchmakingReparadores({ onVerPerfil }: Props) {
   const [reparadores, setReparadores] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -170,9 +174,14 @@ export default function MatchmakingReparadores() {
                 <div className="rep-jobs">
                   {rep.reparacionesDocumentadas} reparaciones
                 </div>
-                <button className="btn-primary-sm">
-                  Contactar Taller
-                </button>
+                {onVerPerfil && (
+                  <button
+                    className="btn-primary-sm"
+                    onClick={() => onVerPerfil(rep.reparadorId)}
+                  >
+                    Ver Perfil <ChevronRight size={14} />
+                  </button>
+                )}
               </div>
             </div>
           ))}

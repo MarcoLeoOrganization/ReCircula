@@ -1,7 +1,7 @@
 export enum RolUsuario {
-  USUARIO_GENERAL = 'USUARIO_GENERAL',
+  USUARIO_GENERAL   = 'USUARIO_GENERAL',
   REPARADOR_VERIFICADO = 'REPARADOR_VERIFICADO',
-  ADMINISTRADOR = 'ADMINISTRADOR',
+  ADMINISTRADOR        = 'ADMINISTRADOR',
 }
 
 export enum EstadoPublicacion {
@@ -20,10 +20,16 @@ export enum ModalidadIntercambio {
 }
 
 export enum EstadoTransaccion {
-  PENDIENTE = 'PENDIENTE',
+  PENDIENTE  = 'PENDIENTE',
   EN_PROCESO = 'EN_PROCESO',
   COMPLETADA = 'COMPLETADA',
-  CANCELADA = 'CANCELADA',
+  CANCELADA  = 'CANCELADA',
+}
+
+export enum EstadoVerificacion {
+  PENDIENTE  = 'PENDIENTE',
+  APROBADA   = 'APROBADA',
+  RECHAZADA  = 'RECHAZADA',
 }
 
 export enum TipoEntradaHistorial {

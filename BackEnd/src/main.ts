@@ -6,9 +6,13 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import * as express from 'express';
 import * as path from 'path';
 import compression from 'compression';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // ── OWASP: Helmet (Cabeceras de Seguridad HSTS, XSS, etc) ───────────────
+  app.use(helmet());
 
   // ── Prefijo global ────────────────────────────────────────────────────────
   app.setGlobalPrefix('api/v1');

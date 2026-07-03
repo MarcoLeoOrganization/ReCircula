@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const API_BASE_URL = 'http://localhost:3000/api/v1'
+const API_BASE_URL = '/api/v1'
 
 export interface FiltrosBusqueda {
   latitud?: number

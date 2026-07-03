@@ -15,7 +15,6 @@ import { CreateTransactionDto } from './dto/create-transaction.dto';
 
 @ApiTags('Transactions — RF-04')
 @Controller('transactions')
-@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class TransactionsController {
   constructor(private readonly svc: TransactionsService) {}

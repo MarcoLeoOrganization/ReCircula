@@ -147,7 +147,7 @@ export default function TransactionsDashboard({
     if (!url)
       return 'https://images.unsplash.com/photo-1588508065123-287b28e013da?q=80&w=600&auto=format&fit=crop'
     if (url.startsWith('http')) return url
-    return `http://localhost:3000${url}`
+    return `${url}`
   }
 
   // Filtrado de tratos

@@ -64,7 +64,7 @@ export default function CreatePublication({
       const token = localStorage.getItem('recircula_token')
       if (!token) {
         try {
-          const res = await fetch('http://localhost:3000/api/v1/identity/login', {
+          const res = await fetch('/api/v1/identity/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

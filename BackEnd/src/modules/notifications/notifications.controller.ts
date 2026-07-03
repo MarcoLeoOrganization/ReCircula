@@ -19,7 +19,6 @@ import { CurrentUser } from '../../common/decorators/current-user.decorator';
 
 @ApiTags('RF-07 — Notificaciones')
 @Controller('notifications')
-@UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class NotificationsController {
   constructor(

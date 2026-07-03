@@ -12,19 +12,21 @@ import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolUsuario } from '../identity/entities/usuario.entity';
+import { Public } from '../../common/decorators/public.decorator';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 
 @Controller('history')
 export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
 
+  @Public()
   @Get('publication/:publicationId')
   async getHistory(@Param('publicationId') publicationId: string) {
     return this.historyService.getHistoryByPublicationId(publicationId);
   }
 
   @Post('publication/:publicationId/repair')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(RolUsuario.REPARADOR_VERIFICADO)
   async addRepair(
     @Param('publicationId') publicationId: string,

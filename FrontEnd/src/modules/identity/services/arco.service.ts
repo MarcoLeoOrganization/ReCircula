@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/v1/arco';
+const API_URL = '/api/v1/arco';
 
 export const arcoService = {
   async solicitarAcceso(token: string) {

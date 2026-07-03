@@ -10,6 +10,7 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
+import { Public } from '../../common/decorators/public.decorator';
 import type { Request } from 'express';
 import {
   ApiTags,
@@ -24,7 +25,6 @@ import {
 } from '@nestjs/swagger';
 
 import { IdentityService } from './identity.service';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -42,6 +42,7 @@ export class IdentityController {
   constructor(private readonly svc: IdentityService) {}
 
   // ── RF-01.1  Registro ─────────────────────────────────────────────────────
+  @Public()
   @Post('register')
   @ApiOperation({
     summary: 'RF-01.1 — Registro de nuevo usuario',
@@ -58,6 +59,7 @@ export class IdentityController {
   }
 
   // ── RF-01.1  Verificar email ──────────────────────────────────────────────
+  @Public()
   @Get('verify-email')
   @ApiOperation({
     summary: 'RF-01.1 — Activar cuenta desde el enlace del correo',
@@ -76,6 +78,7 @@ export class IdentityController {
   }
 
   // ── RF-01.1  Reenviar verificación ───────────────────────────────────────
+  @Public()
   @Post('resend-verification')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -88,6 +91,7 @@ export class IdentityController {
   }
 
   // ── RF-01.2  Login ────────────────────────────────────────────────────────
+  @Public()
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -111,6 +115,7 @@ export class IdentityController {
   }
 
   // ── RF-01.3  Solicitar recuperación ──────────────────────────────────────
+  @Public()
   @Post('forgot-password')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -123,6 +128,7 @@ export class IdentityController {
   }
 
   // ── RF-01.3  Restablecer contraseña ──────────────────────────────────────
+  @Public()
   @Post('reset-password')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -141,7 +147,6 @@ export class IdentityController {
   // ── RF-01.5  Logout ───────────────────────────────────────────────────────
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'RF-01.5 — Cerrar sesión e invalidar JWT activo',
@@ -156,7 +161,6 @@ export class IdentityController {
 
   // ── RF-01.4  Perfil propio (diferenciado por rol) ────────────────────────
   @Get('me')
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'RF-01.4 — Datos del usuario autenticado (cualquier rol)',
@@ -167,7 +171,6 @@ export class IdentityController {
 
   // ── RF-08  Rectificar perfil propio ────────────────────────────────────────
   @Patch('me')
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'RF-08 — Actualizar datos del usuario autenticado (Rectificación)',
@@ -182,7 +185,7 @@ export class IdentityController {
 
   // ── RF-01.4  Endpoint exclusivo de ADMINISTRADOR ──────────────────
   @Get('admin/dashboard')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(RolUsuario.ADMINISTRADOR)
   @ApiBearerAuth()
   @ApiOperation({
@@ -195,7 +198,7 @@ export class IdentityController {
 
   // ── RF-01.4  Endpoint exclusivo de REPARADOR_VERIFICADO ─────────────
   @Get('reparador/perfil')
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(RolesGuard)
   @Roles(RolUsuario.REPARADOR_VERIFICADO, RolUsuario.ADMINISTRADOR)
   @ApiBearerAuth()
   @ApiOperation({

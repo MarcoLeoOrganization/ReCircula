@@ -11,6 +11,7 @@ import {
   UploadedFiles,
   BadRequestException,
 } from '@nestjs/common';
+import { Public } from '../../common/decorators/public.decorator';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import {
   ApiTags,
@@ -19,7 +20,6 @@ import {
   ApiConsumes,
 } from '@nestjs/swagger';
 import { PublicationsService } from './publications.service';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { UpdatePublicationDto } from './dto/update-publication.dto';
@@ -33,7 +33,6 @@ export class PublicationsController {
 
   // ── RF-02.1 / RF-02.2 / RF-02.3  Crear publicación con imágenes y componentes ────
   @Post()
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @UseInterceptors(FilesInterceptor('imagenes', 10))
   @ApiConsumes('multipart/form-data')
@@ -90,6 +89,7 @@ export class PublicationsController {
   }
 
   // ── RF-03.1 / RF-03.2  Buscar / Listar publicaciones (Público) ────────────────────
+  @Public()
   @Get()
   @ApiOperation({
     summary: 'RF-03.1 — Listar publicaciones activas',
@@ -116,6 +116,7 @@ export class PublicationsController {
   }
 
   // ── RF-02.5  Ver detalle de una publicación (Público) ─────────────────────────────
+  @Public()
   @Get(':id')
   @ApiOperation({
     summary: 'RF-02.5 — Detalle de una publicación con componentes y fotos',
@@ -126,7 +127,6 @@ export class PublicationsController {
 
   // ── RF-02.4  Editar publicación ───────────────────────────────────────────────────
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({
     summary:
@@ -161,7 +161,6 @@ export class PublicationsController {
 
   // ── RF-02.4  Archivar publicación ──────────────────────────────────────────────────
   @Patch(':id/archive')
-  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'RF-02.4 — Archivar una publicación',

@@ -215,7 +215,12 @@ export const matchmakingApi = {
     return res.json()
   },
 
-  async getReparadores(filtros: { latitud: number; longitud: number; categoria: string; radioKm?: number }) {
+  async getReparadores(filtros: {
+    latitud: number
+    longitud: number
+    categoria: string
+    radioKm?: number
+  }) {
     const params = new URLSearchParams()
     params.append('latitud', filtros.latitud.toString())
     params.append('longitud', filtros.longitud.toString())
@@ -233,7 +238,7 @@ export const matchmakingApi = {
 export const reputationApi = {
   async crearCalificacion(
     data: { transaccionId: string; puntuacion: number; comentario?: string },
-    token: string,
+    token: string
   ) {
     const res = await fetch(`${API_BASE_URL}/reputation/calificaciones`, {
       method: 'POST',
@@ -286,7 +291,7 @@ export const reputationApi = {
     id: string,
     decision: 'APROBADA' | 'RECHAZADA',
     notasAdmin: string | undefined,
-    token: string,
+    token: string
   ) {
     const res = await fetch(`${API_BASE_URL}/reputation/verificacion/${id}/revisar`, {
       method: 'PATCH',

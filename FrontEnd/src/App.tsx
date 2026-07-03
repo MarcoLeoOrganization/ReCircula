@@ -11,7 +11,19 @@ import SolicitarVerificacion from './modules/reputation/pages/SolicitarVerificac
 import ArcoDashboard from './modules/identity/pages/ArcoDashboard'
 import { useAuthStore } from './store/authStore'
 import { NotificationBell } from './modules/notifications/components/NotificationBell'
-import { Plus, RefreshCw, LogOut, ShieldCheck, Wrench, Search, MapPin, SlidersHorizontal, Info } from 'lucide-react'
+import {
+  Plus,
+  RefreshCw,
+  LogOut,
+  ShieldCheck,
+  Wrench,
+  Search,
+  MapPin,
+  SlidersHorizontal,
+  Info,
+  Menu,
+  X,
+} from 'lucide-react'
 import './App.css'
 
 const CATEGORIAS = [
@@ -34,9 +46,20 @@ function App() {
   const { user, token, clearSession } = useAuthStore()
   const rol = user?.rol || 'USUARIO_GENERAL'
 
-  const [view, setView] = useState<'list' | 'create' | 'details' | 'edit' | 'tratos' | 'reparadores' | 'perfil-reparador' | 'solicitar-verificacion' | 'arco'>('list')
+  const [view, setView] = useState<
+    | 'list'
+    | 'create'
+    | 'details'
+    | 'edit'
+    | 'tratos'
+    | 'reparadores'
+    | 'perfil-reparador'
+    | 'solicitar-verificacion'
+    | 'arco'
+  >('list')
   const [activePublicationId, setActivePublicationId] = useState<string>('')
   const [selectedReparadorId, setSelectedReparadorId] = useState<string>('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   // Estados del listado
   const [publications, setPublications] = useState<any[]>([])
@@ -81,7 +104,7 @@ function App() {
       if (categoria !== 'Todas') filtros.categoria = categoria
       if (modalidad !== 'Todas') filtros.modalidad = modalidad
 
-      let data;
+      let data
       if (usarGeo) {
         filtros.latitud = parseFloat(latitud)
         filtros.longitud = parseFloat(longitud)
@@ -92,7 +115,7 @@ function App() {
       } else {
         data = await publicationsApi.getPublications(filtros)
       }
-      
+
       setPublications(data)
     } catch (err: any) {
       setError(err.message || 'Error al obtener publicaciones')
@@ -167,60 +190,137 @@ function App() {
           >
             <RefreshCw size={20} color="#2D6A4F" />
           </div>
-          <span className="logo-text" onClick={() => setView('list')} style={{ cursor: 'pointer' }}>
+          <span
+            className="logo-text"
+            onClick={() => {
+              setView('list')
+              setMenuOpen(false)
+            }}
+            style={{ cursor: 'pointer' }}
+          >
             ReCircula
           </span>
         </div>
 
         {/* Navegación adaptada al rol */}
-        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-
+        <div className={`nav-actions ${menuOpen ? 'open' : ''}`}>
           {/* Catálogo: todos los roles */}
-          <span className="nav-link" onClick={() => setView('list')}
-            style={{ cursor:'pointer', color: view==='list' ? '#2D6A4F':'#9ca3af', fontWeight:'600', fontSize:'0.95rem' }}>
+          <span
+            className="nav-link"
+            onClick={() => {
+              setView('list')
+              setMenuOpen(false)
+            }}
+            style={{
+              cursor: 'pointer',
+              color: view === 'list' ? '#2D6A4F' : '#9ca3af',
+              fontWeight: '600',
+              fontSize: '0.95rem',
+            }}
+          >
             Catálogo
           </span>
 
           {/* Mis Tratos: USUARIO_GENERAL y REPARADOR_VERIFICADO */}
           {(rol === 'USUARIO_GENERAL' || rol === 'REPARADOR_VERIFICADO') && (
-            <span className="nav-link" onClick={() => setView('tratos')}
-              style={{ cursor:'pointer', color: view==='tratos' ? '#2D6A4F':'#9ca3af', fontWeight:'600', fontSize:'0.95rem' }}>
+            <span
+              className="nav-link"
+              onClick={() => {
+                setView('tratos')
+                setMenuOpen(false)
+              }}
+              style={{
+                cursor: 'pointer',
+                color: view === 'tratos' ? '#2D6A4F' : '#9ca3af',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+              }}
+            >
               Mis Tratos
             </span>
           )}
 
           {/* Reparadores: todos los roles */}
-          <span className="nav-link" onClick={() => setView('reparadores')}
-            style={{ cursor:'pointer', color: view==='reparadores' ? '#2D6A4F':'#9ca3af', fontWeight:'600', fontSize:'0.95rem' }}>
+          <span
+            className="nav-link"
+            onClick={() => {
+              setView('reparadores')
+              setMenuOpen(false)
+            }}
+            style={{
+              cursor: 'pointer',
+              color: view === 'reparadores' ? '#2D6A4F' : '#9ca3af',
+              fontWeight: '600',
+              fontSize: '0.95rem',
+            }}
+          >
             Reparadores
           </span>
 
           {/* Mi Perfil: Solo para Reparadores */}
           {rol === 'REPARADOR_VERIFICADO' ? (
-            <span className="nav-link" onClick={() => { setView('perfil-reparador'); setSelectedReparadorId(user?.id || ''); }}
-              style={{ cursor:'pointer', color: view==='perfil-reparador' ? '#2D6A4F':'#9ca3af', fontWeight:'600', fontSize:'0.95rem' }}>
+            <span
+              className="nav-link"
+              onClick={() => {
+                setView('perfil-reparador')
+                setSelectedReparadorId(user?.id || '')
+                setMenuOpen(false)
+              }}
+              style={{
+                cursor: 'pointer',
+                color: view === 'perfil-reparador' ? '#2D6A4F' : '#9ca3af',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+              }}
+            >
               Mi Perfil
             </span>
           ) : null}
 
           {/* ARCO */}
-          <span className="nav-link" onClick={() => setView('arco')}
-            style={{ cursor:'pointer', color: view==='arco' ? '#2D6A4F':'#9ca3af', fontWeight:'600', fontSize:'0.95rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <span
+            className="nav-link"
+            onClick={() => {
+              setView('arco')
+              setMenuOpen(false)
+            }}
+            style={{
+              cursor: 'pointer',
+              color: view === 'arco' ? '#2D6A4F' : '#9ca3af',
+              fontWeight: '600',
+              fontSize: '0.95rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+            }}
+          >
             <ShieldCheck size={16} /> Privacidad (ARCO)
           </span>
 
           {/* Indicador de rol */}
-          <span style={{
-            display: 'flex', alignItems: 'center', gap: '6px',
-            fontSize: '0.82rem', fontWeight: '600', padding: '4px 10px',
-            borderRadius: '20px',
-            background: rol === 'ADMINISTRADOR' ? 'rgba(239,68,68,0.1)'
-                       : rol === 'REPARADOR_VERIFICADO' ? 'rgba(16,185,129,0.1)'
-                       : 'rgba(45,106,79,0.1)',
-            color: rol === 'ADMINISTRADOR' ? '#dc2626'
-                 : rol === 'REPARADOR_VERIFICADO' ? '#059669'
-                 : '#2D6A4F',
-          }}>
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: '0.82rem',
+              fontWeight: '600',
+              padding: '4px 10px',
+              borderRadius: '20px',
+              background:
+                rol === 'ADMINISTRADOR'
+                  ? 'rgba(239,68,68,0.1)'
+                  : rol === 'REPARADOR_VERIFICADO'
+                    ? 'rgba(16,185,129,0.1)'
+                    : 'rgba(45,106,79,0.1)',
+              color:
+                rol === 'ADMINISTRADOR'
+                  ? '#dc2626'
+                  : rol === 'REPARADOR_VERIFICADO'
+                    ? '#059669'
+                    : '#2D6A4F',
+            }}
+          >
             {rol === 'ADMINISTRADOR' && <ShieldCheck size={14} />}
             {rol === 'REPARADOR_VERIFICADO' && <Wrench size={14} />}
             {user?.nombre?.split(' ')[0] || 'Usuario'}
@@ -228,27 +328,57 @@ function App() {
 
           {/* Botón publicar: solo USUARIO_GENERAL y REPARADOR_VERIFICADO en lista */}
           {view === 'list' && rol !== 'ADMINISTRADOR' && (
-            <button className="btn-primary" onClick={() => setView('create')}>
+            <button
+              className="btn-primary"
+              onClick={() => {
+                setView('create')
+                setMenuOpen(false)
+              }}
+            >
               <Plus size={18} /> Publicar
             </button>
           )}
-
-          <NotificationBell token={token} />
 
           {/* Logout */}
           <button
             onClick={handleLogout}
             style={{
-              display:'flex', alignItems:'center', gap:'6px',
-              padding:'7px 14px', borderRadius:'8px', cursor:'pointer',
-              background:'transparent', border:'1.5px solid #e5e7eb',
-              color:'#6b7280', fontSize:'0.85rem', fontWeight:'600',
-              transition:'all 0.15s',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '7px 14px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              background: 'transparent',
+              border: '1.5px solid #e5e7eb',
+              color: '#6b7280',
+              fontSize: '0.85rem',
+              fontWeight: '600',
+              transition: 'all 0.15s',
             }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor='#ef4444'; (e.currentTarget as HTMLButtonElement).style.color='#ef4444' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor='#e5e7eb'; (e.currentTarget as HTMLButtonElement).style.color='#6b7280' }}
+            onMouseEnter={(e) => {
+              ;(e.currentTarget as HTMLButtonElement).style.borderColor = '#ef4444'
+              ;(e.currentTarget as HTMLButtonElement).style.color = '#ef4444'
+            }}
+            onMouseLeave={(e) => {
+              ;(e.currentTarget as HTMLButtonElement).style.borderColor = '#e5e7eb'
+              ;(e.currentTarget as HTMLButtonElement).style.color = '#6b7280'
+            }}
           >
             <LogOut size={15} /> Salir
+          </button>
+        </div>
+
+        {/* Controles de cabecera persistentes (notificaciones y menú hamburguesa) */}
+        <div className="header-right-controls">
+          <NotificationBell token={token} />
+
+          <button
+            className="menu-toggle-btn"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </header>
@@ -298,9 +428,7 @@ function App() {
         <SolicitarVerificacion onBack={() => setView('perfil-reparador')} />
       )}
 
-      {view === 'arco' && (
-        <ArcoDashboard />
-      )}
+      {view === 'arco' && <ArcoDashboard />}
 
       {view === 'list' && (
         <div className="dashboard-container">

@@ -279,3 +279,70 @@
     transform: rotate(350deg);
   }
 }
+
+@media (max-width: 768px) {
+  .tx-dashboard {
+    margin: 20px auto;
+    padding: 0 16px;
+  }
+
+  .tx-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .tx-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+  }
+
+  .tx-tab-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .tx-card-main {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tx-img-container {
+    width: 100%;
+    height: 140px;
+  }
+
+  .tx-meta-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tx-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .tx-actions button {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tx-confirm-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .tx-badge-confirmed {
+    margin-left: 0;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

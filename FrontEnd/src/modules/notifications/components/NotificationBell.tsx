@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { useNotifications } from '../hooks/useNotifications';
-import { NotificationPanel } from './NotificationPanel';
-import './NotificationBell.css';
+import React, { useState } from 'react'
+import { useNotifications } from '../hooks/useNotifications'
+import { NotificationPanel } from './NotificationPanel'
+import './NotificationBell.css'
 
 interface Props {
-  token: string | null;
+  token: string | null
 }
 
 export const NotificationBell: React.FC<Props> = ({ token }) => {
-  const [open, setOpen] = useState(false);
-  const { notifications, unreadCount, markAsRead, markAllAsRead } =
-    useNotifications(token);
+  const [open, setOpen] = useState(false)
+  const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(token)
 
-  if (!token) return null;
+  if (!token) return null
 
   return (
     <div className="notif-bell-wrapper">
@@ -37,9 +36,7 @@ export const NotificationBell: React.FC<Props> = ({ token }) => {
         </svg>
 
         {unreadCount > 0 && (
-          <span className="notif-bell-badge">
-            {unreadCount > 99 ? '99+' : unreadCount}
-          </span>
+          <span className="notif-bell-badge">{unreadCount > 99 ? '99+' : unreadCount}</span>
         )}
       </button>
 
@@ -52,5 +49,5 @@ export const NotificationBell: React.FC<Props> = ({ token }) => {
         />
       )}
     </div>
-  );
-};
+  )
+}

@@ -78,9 +78,7 @@ export default function PerfilReparador({ reparadorId, onBack, onSolicitarVerifi
 
       {/* Hero del perfil */}
       <div className="prf-hero">
-        <div className="prf-avatar">
-          {perfil.nombre?.charAt(0).toUpperCase()}
-        </div>
+        <div className="prf-avatar">{perfil.nombre?.charAt(0).toUpperCase()}</div>
         <div className="prf-hero-info">
           <div className="prf-verified-badge">
             <CheckCircle size={14} /> Reparador Verificado
@@ -115,7 +113,9 @@ export default function PerfilReparador({ reparadorId, onBack, onSolicitarVerifi
           </h3>
           <div className="prf-tags">
             {perfil.especialidades.map((esp: string, i: number) => (
-              <span key={i} className="prf-tag">{esp}</span>
+              <span key={i} className="prf-tag">
+                {esp}
+              </span>
             ))}
           </div>
         </div>
@@ -151,9 +151,7 @@ export default function PerfilReparador({ reparadorId, onBack, onSolicitarVerifi
                     ))}
                   </div>
                 </div>
-                {cal.comentario && (
-                  <p className="prf-review-comment">"{cal.comentario}"</p>
-                )}
+                {cal.comentario && <p className="prf-review-comment">"{cal.comentario}"</p>}
               </div>
             ))}
           </div>
@@ -167,7 +165,10 @@ export default function PerfilReparador({ reparadorId, onBack, onSolicitarVerifi
             <Upload size={18} />
             <div>
               <strong>¿Eres un reparador?</strong>
-              <p>Solicita tu verificación adjuntando evidencias de reparaciones previas y gana mayor visibilidad.</p>
+              <p>
+                Solicita tu verificación adjuntando evidencias de reparaciones previas y gana mayor
+                visibilidad.
+              </p>
             </div>
           </div>
           <button className="btn-primary-sm" onClick={onSolicitarVerificacion}>

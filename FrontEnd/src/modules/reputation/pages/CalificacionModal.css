@@ -24,8 +24,14 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .cal-close {
@@ -156,4 +162,21 @@
   display: flex;
   gap: 10px;
   justify-content: flex-end;
+}
+
+@media (max-width: 480px) {
+  .cal-modal {
+    padding: 24px 20px !important;
+    width: 90% !important;
+  }
+
+  .cal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .cal-actions button {
+    width: 100%;
+    justify-content: center;
+  }
 }

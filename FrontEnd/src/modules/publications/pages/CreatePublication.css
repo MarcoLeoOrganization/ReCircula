@@ -282,3 +282,31 @@ select:focus {
   margin-bottom: 24px;
   font-size: 0.95rem;
 }
+
+@media (max-width: 768px) {
+  .publication-container {
+    margin: 20px auto;
+    padding: 24px;
+  }
+
+  .form-section {
+    padding: 20px;
+  }
+
+  .publication-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .component-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .remove-btn {
+    width: 100%;
+    padding: 10px;
+    height: 42px;
+  }
+}

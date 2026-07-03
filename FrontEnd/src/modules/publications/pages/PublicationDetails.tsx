@@ -38,7 +38,8 @@ export default function PublicationDetails({
 
   const handlePropose = async (e: React.FormEvent) => {
     e.preventDefault()
-    const activeToken = token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
+    const activeToken =
+      token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
     if (!activeToken) {
       alert('Debes iniciar sesión para realizar esta acción.')
       return
@@ -86,7 +87,8 @@ export default function PublicationDetails({
 
   const handleAddRepair = async (e: React.FormEvent) => {
     e.preventDefault()
-    const activeToken = token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
+    const activeToken =
+      token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
     if (!activeToken) {
       alert('Debes iniciar sesión para realizar esta acción.')
       return
@@ -100,7 +102,10 @@ export default function PublicationDetails({
     try {
       setSavingRepair(true)
       const pieces = repairPieces
-        ? repairPieces.split(',').map((p) => p.trim()).filter(Boolean)
+        ? repairPieces
+            .split(',')
+            .map((p) => p.trim())
+            .filter(Boolean)
         : []
 
       await publicationsApi.addRepairEntry(
@@ -140,11 +145,13 @@ export default function PublicationDetails({
 
   useEffect(() => {
     fetchDetail()
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchHistory()
   }, [fetchDetail, fetchHistory])
 
   const handleArchive = async () => {
-    const activeToken = token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
+    const activeToken =
+      token || localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
     if (!activeToken) {
       alert('Debes iniciar sesión para realizar esta acción.')
       return
@@ -364,16 +371,49 @@ export default function PublicationDetails({
       </div>
 
       {/* Historial de Vida del Producto */}
-      <div className="history-section-card" style={{ marginTop: '24px', background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', margin: 0, color: 'var(--text-primary)' }}>
+      <div
+        className="history-section-card"
+        style={{
+          marginTop: '24px',
+          background: 'var(--card-bg)',
+          border: '1px solid var(--border-color)',
+          borderRadius: '12px',
+          padding: '20px',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '16px',
+          }}
+        >
+          <h3
+            style={{
+              fontSize: '1.2rem',
+              fontWeight: '600',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              margin: 0,
+              color: 'var(--text-primary)',
+            }}
+          >
             <Clock size={20} color="#2D6A4F" /> Historial de Vida del Producto
           </h3>
           {user?.rol === 'REPARADOR_VERIFICADO' && pub?.publicadorId === user?.id && (
             <button
               className="btn-primary"
               onClick={() => setShowRepairModal(true)}
-              style={{ padding: '8px 14px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
+              style={{
+                padding: '8px 14px',
+                fontSize: '0.85rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer',
+              }}
             >
               <Wrench size={14} /> Registrar Reparación
             </button>
@@ -383,68 +423,119 @@ export default function PublicationDetails({
         {loadingHistory ? (
           <p style={{ color: 'var(--text-secondary)' }}>Cargando historial...</p>
         ) : !history || !history.entradas || history.entradas.length === 0 ? (
-          <p style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>Este producto aún no cuenta con historial de transacciones o reparaciones registradas.</p>
+          <p style={{ color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+            Este producto aún no cuenta con historial de transacciones o reparaciones registradas.
+          </p>
         ) : (
-          <div className="timeline-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', borderLeft: '2px solid var(--border-color)', paddingLeft: '16px', marginLeft: '8px' }}>
+          <div
+            className="timeline-container"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              borderLeft: '2px solid var(--border-color)',
+              paddingLeft: '16px',
+              marginLeft: '8px',
+            }}
+          >
             {history.entradas.map((entry: any) => (
               <div key={entry.id} className="timeline-entry" style={{ position: 'relative' }}>
-                <div style={{
-                  position: 'absolute',
-                  left: '-26px',
-                  top: '2px',
-                  background: entry.tipo === 'REPARACION' ? '#2D6A4F' : '#3B82F6',
-                  borderRadius: '50%',
-                  width: '18px',
-                  height: '18px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '9px',
-                  fontWeight: 'bold'
-                }}>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: '-26px',
+                    top: '2px',
+                    background: entry.tipo === 'REPARACION' ? '#2D6A4F' : '#3B82F6',
+                    borderRadius: '50%',
+                    width: '18px',
+                    height: '18px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '9px',
+                    fontWeight: 'bold',
+                  }}
+                >
                   {entry.tipo === 'REPARACION' ? 'R' : 'I'}
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                  <span style={{ fontWeight: '600', fontSize: '0.95rem', color: 'var(--text-primary)' }}>
-                    {entry.tipo === 'REPARACION' ? 'Reparación Documentada' : 'Intercambio Completado'}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: '4px',
+                  }}
+                >
+                  <span
+                    style={{ fontWeight: '600', fontSize: '0.95rem', color: 'var(--text-primary)' }}
+                  >
+                    {entry.tipo === 'REPARACION'
+                      ? 'Reparación Documentada'
+                      : 'Intercambio Completado'}
                   </span>
                   <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                     {new Date(entry.fechaCreacion).toLocaleDateString('es-MX', {
                       year: 'numeric',
                       month: 'short',
-                      day: 'numeric'
+                      day: 'numeric',
                     })}
                   </span>
                 </div>
-                <p style={{ margin: '0 0 6px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{entry.descripcion}</p>
-                
+                <p
+                  style={{ margin: '0 0 6px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}
+                >
+                  {entry.descripcion}
+                </p>
+
                 {entry.tipo === 'REPARACION' && entry.reparador && (
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                  <div
+                    style={{
+                      fontSize: '0.85rem',
+                      color: 'var(--text-secondary)',
+                      marginBottom: '4px',
+                    }}
+                  >
                     <strong>Reparador:</strong> {entry.reparador.nombre}
                   </div>
                 )}
 
                 {entry.estadoResultante && (
                   <div style={{ marginBottom: '6px' }}>
-                    <span className="status-badge functional" style={{ fontSize: '0.75rem', padding: '2px 8px' }}>
+                    <span
+                      className="status-badge functional"
+                      style={{ fontSize: '0.75rem', padding: '2px 8px' }}
+                    >
                       Estado Resultante: {entry.estadoResultante}
                     </span>
                   </div>
                 )}
 
                 {entry.piezasReemplazadas && entry.piezasReemplazadas.length > 0 && (
-                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center', marginTop: '4px' }}>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Piezas reemplazadas:</span>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '6px',
+                      flexWrap: 'wrap',
+                      alignItems: 'center',
+                      marginTop: '4px',
+                    }}
+                  >
+                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                      Piezas reemplazadas:
+                    </span>
                     {entry.piezasReemplazadas.map((piece: string, idx: number) => (
-                      <span key={idx} style={{
-                        fontSize: '0.75rem',
-                        background: 'rgba(45, 106, 79, 0.1)',
-                        color: '#2D6A4F',
-                        padding: '2px 8px',
-                        borderRadius: '12px',
-                        border: '1px solid rgba(45, 106, 79, 0.2)'
-                      }}>
+                      <span
+                        key={idx}
+                        style={{
+                          fontSize: '0.75rem',
+                          background: 'rgba(45, 106, 79, 0.1)',
+                          color: '#2D6A4F',
+                          padding: '2px 8px',
+                          borderRadius: '12px',
+                          border: '1px solid rgba(45, 106, 79, 0.2)',
+                        }}
+                      >
                         {piece}
                       </span>
                     ))}
@@ -628,7 +719,14 @@ export default function PublicationDetails({
 
             <form onSubmit={handleAddRepair}>
               <div className="form-group" style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '6px',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
                   Descripción de la reparación *
                 </label>
                 <textarea
@@ -650,7 +748,14 @@ export default function PublicationDetails({
               </div>
 
               <div className="form-group" style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '6px',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
                   Piezas reemplazadas (separadas por comas)
                 </label>
                 <input
@@ -670,7 +775,14 @@ export default function PublicationDetails({
               </div>
 
               <div className="form-group" style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', marginBottom: '6px', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '6px',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
                   Estado resultante del producto
                 </label>
                 <select
@@ -692,7 +804,10 @@ export default function PublicationDetails({
                 </select>
               </div>
 
-              <div className="modal-actions" style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <div
+                className="modal-actions"
+                style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}
+              >
                 <button
                   type="button"
                   className="btn-secondary"

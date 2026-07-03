@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 /**
  * Cliente HTTP base para ReCircula.
@@ -9,29 +9,29 @@ import axios from 'axios';
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api/v1',
   headers: { 'Content-Type': 'application/json' },
-});
+})
 
 // ── Request: inyecta el Bearer token si existe ────────────────────────────────
 axiosClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('rc_token');
+  const token = localStorage.getItem('rc_token')
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
-  return config;
-});
+  return config
+})
 
 // ── Response: maneja 401 globalmente ─────────────────────────────────────────
 axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('rc_token');
-      localStorage.removeItem('rc_user');
+      localStorage.removeItem('rc_token')
+      localStorage.removeItem('rc_user')
       // Redirige sin depender de React Router (funciona fuera de componentes)
-      window.location.href = '/login';
+      window.location.href = '/login'
     }
-    return Promise.reject(error);
-  },
-);
+    return Promise.reject(error)
+  }
+)
 
-export default axiosClient;
+export default axiosClient

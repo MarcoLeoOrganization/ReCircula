@@ -68,6 +68,7 @@ export default function MatchmakingReparadores({ onVerPerfil }: Props) {
 
   // Buscar la primera vez automáticamente
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchReparadores()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -82,7 +83,8 @@ export default function MatchmakingReparadores({ onVerPerfil }: Props) {
       <div className="rep-header">
         <h2>Reparadores Locales</h2>
         <p className="rep-sub">
-          Encuentra talleres y técnicos verificados cerca de tu ubicación para dar una segunda vida a tus artículos.
+          Encuentra talleres y técnicos verificados cerca de tu ubicación para dar una segunda vida
+          a tus artículos.
         </p>
       </div>
 
@@ -115,7 +117,12 @@ export default function MatchmakingReparadores({ onVerPerfil }: Props) {
             <button
               type="submit"
               className="btn-primary"
-              style={{ padding: '12px 18px', width: '100%', height: '42px', justifyContent: 'center' }}
+              style={{
+                padding: '12px 18px',
+                width: '100%',
+                height: '42px',
+                justifyContent: 'center',
+              }}
             >
               <Search size={18} /> Buscar
             </button>
@@ -133,7 +140,10 @@ export default function MatchmakingReparadores({ onVerPerfil }: Props) {
         <div className="rep-empty">
           <Info size={36} color="#10b981" />
           <h4>No hay reparadores cercanos</h4>
-          <p>No pudimos encontrar técnicos verificados para esta categoría en tu área. Intenta ampliar el radio de búsqueda.</p>
+          <p>
+            No pudimos encontrar técnicos verificados para esta categoría en tu área. Intenta
+            ampliar el radio de búsqueda.
+          </p>
         </div>
       ) : (
         <div className="rep-list">
@@ -171,14 +181,9 @@ export default function MatchmakingReparadores({ onVerPerfil }: Props) {
                 <div className="rep-rating">
                   <Star size={18} fill="#d97706" color="#d97706" /> {rep.puntuacion}
                 </div>
-                <div className="rep-jobs">
-                  {rep.reparacionesDocumentadas} reparaciones
-                </div>
+                <div className="rep-jobs">{rep.reparacionesDocumentadas} reparaciones</div>
                 {onVerPerfil && (
-                  <button
-                    className="btn-primary-sm"
-                    onClick={() => onVerPerfil(rep.reparadorId)}
-                  >
+                  <button className="btn-primary-sm" onClick={() => onVerPerfil(rep.reparadorId)}>
                     Ver Perfil <ChevronRight size={14} />
                   </button>
                 )}

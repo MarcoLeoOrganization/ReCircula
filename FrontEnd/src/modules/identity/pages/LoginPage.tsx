@@ -1,20 +1,18 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useLogin } from '../hooks/useLogin';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useLogin } from '../hooks/useLogin'
 
 // ── Estilos inline como objeto (sin dependencia de CSS externo) ───────────────
 const styles = {
   page: {
     minHeight: '100vh',
     backgroundColor: '#F8F4EE',
-    backgroundImage:
-      'radial-gradient(circle, #2D6A4F18 1px, transparent 1px)',
+    backgroundImage: 'radial-gradient(circle, #2D6A4F18 1px, transparent 1px)',
     backgroundSize: '28px 28px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
     padding: '24px 16px',
   },
   card: {
@@ -130,17 +128,12 @@ const styles = {
     borderTop: '1px solid #E8E2DA',
     margin: '28px 0',
   },
-} as const;
+} as const
 
 // ── Ícono SVG de ciclo (signature visual) ─────────────────────────────────────
 function RecycleIcon() {
   return (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={styles.logoIcon}
-    >
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={styles.logoIcon}>
       <circle cx="24" cy="24" r="22" fill="#2D6A4F" opacity="0.08" />
       <path
         d="M24 10 A14 14 0 0 1 38 24"
@@ -171,30 +164,58 @@ function RecycleIcon() {
         fill="none"
       />
       {/* flechas */}
-      <polyline points="24,6 24,10 28,10" stroke="#2D6A4F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      <polyline points="42,24 38,24 38,20" stroke="#95D5B2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      <polyline points="24,42 24,38 20,38" stroke="#2D6A4F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      <polyline points="6,24 10,24 10,28" stroke="#95D5B2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <polyline
+        points="24,6 24,10 28,10"
+        stroke="#2D6A4F"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <polyline
+        points="42,24 38,24 38,20"
+        stroke="#95D5B2"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <polyline
+        points="24,42 24,38 20,38"
+        stroke="#2D6A4F"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <polyline
+        points="6,24 10,24 10,28"
+        stroke="#95D5B2"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
     </svg>
-  );
+  )
 }
 
 // ── Componente ────────────────────────────────────────────────────────────────
 export function LoginPage() {
-  const { login, loading, error } = useLogin();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const { login, loading, error } = useLogin()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [focusedField, setFocusedField] = useState<string | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    login({ email, password });
-  };
+    e.preventDefault()
+    login({ email, password })
+  }
 
   const inputStyle = (field: string) => ({
     ...styles.input,
     ...(focusedField === field ? styles.inputFocus : {}),
-  });
+  })
 
   return (
     <div style={styles.page}>
@@ -274,5 +295,5 @@ export function LoginPage() {
         </p>
       </div>
     </div>
-  );
+  )
 }

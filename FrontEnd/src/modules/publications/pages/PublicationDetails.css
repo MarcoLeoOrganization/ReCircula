@@ -293,3 +293,30 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 768px) {
+  .details-container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .item-title {
+    font-size: 1.6rem;
+  }
+
+  .price-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .action-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-secondary,
+  .btn-danger {
+    width: 100%;
+  }
+}

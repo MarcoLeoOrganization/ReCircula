@@ -173,3 +173,61 @@
   color: var(--text-secondary);
   margin-bottom: 8px;
 }
+
+@media (max-width: 768px) {
+  .rep-dashboard {
+    margin: 20px auto;
+    padding: 0 16px;
+  }
+
+  .rep-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .rep-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .rep-card-main {
+    gap: 14px;
+  }
+
+  .rep-icon-container {
+    width: 60px;
+    height: 60px;
+  }
+
+  .rep-icon-container svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .rep-title {
+    font-size: 1.1rem;
+  }
+
+  .rep-actions {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+    margin-top: 4px;
+    gap: 12px;
+  }
+
+  .rep-actions .btn-primary-sm {
+    margin-left: auto;
+  }
+
+  .rep-rating {
+    font-size: 1rem;
+  }
+
+  .rep-jobs {
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+}

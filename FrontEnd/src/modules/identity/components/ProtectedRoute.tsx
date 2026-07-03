@@ -1,9 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore, type RolUsuario } from '../../../store/authStore';
+import { Navigate, Outlet } from 'react-router-dom'
+import { useAuthStore, type RolUsuario } from '../../../store/authStore'
 
 interface ProtectedRouteProps {
   /** Si se omite, solo verifica que el usuario esté autenticado */
-  allowedRoles?: RolUsuario[];
+  allowedRoles?: RolUsuario[]
 }
 
 /**
@@ -14,16 +14,16 @@ interface ProtectedRouteProps {
  *   <Route element={<ProtectedRoute allowedRoles={['ADMINISTRADOR']} />}>
  */
 export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore()
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace />
   }
 
   if (allowedRoles && user && !allowedRoles.includes(user.rol)) {
     // Autenticado pero sin el rol requerido → página de inicio según su rol
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" replace />
   }
 
-  return <Outlet />;
+  return <Outlet />
 }

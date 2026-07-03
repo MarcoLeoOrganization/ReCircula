@@ -16,12 +16,15 @@
   justify-content: center;
   cursor: pointer;
   color: #4b5563; /* Gris oscuro para el tema claro */
-  transition: background 0.2s, color 0.2s, transform 0.15s;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.15s;
 }
 
 .notif-bell-btn:hover {
   background: #f3f4f6; /* Gris muy claro */
-  color: #2D6A4F; /* Verde principal */
+  color: #2d6a4f; /* Verde principal */
   transform: scale(1.05);
 }
 
@@ -55,7 +58,13 @@
 }
 
 @keyframes badge-pop {
-  0%   { transform: scale(0); }
-  70%  { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

@@ -12,7 +12,12 @@ interface Props {
   onSuccess: () => void
 }
 
-export default function CalificacionModal({ transaccionId, contraparte, onClose, onSuccess }: Props) {
+export default function CalificacionModal({
+  transaccionId,
+  contraparte,
+  onClose,
+  onSuccess,
+}: Props) {
   const [puntuacion, setPuntuacion] = useState(0)
   const [hovered, setHovered] = useState(0)
   const [comentario, setComentario] = useState('')
@@ -32,7 +37,7 @@ export default function CalificacionModal({ transaccionId, contraparte, onClose,
       setError(null)
       await reputationApi.crearCalificacion(
         { transaccionId, puntuacion, comentario: comentario || undefined },
-        token,
+        token
       )
       onSuccess()
     } catch (err: any) {

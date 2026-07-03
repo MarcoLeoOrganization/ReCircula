@@ -67,7 +67,10 @@ export default function SolicitarVerificacion({ onBack }: Props) {
             <CheckCircle size={40} color="#059669" />
           </div>
           <h2>¡Solicitud enviada!</h2>
-          <p>Tu solicitud de verificación fue recibida. Un administrador revisará tu evidencia y recibirás una respuesta pronto.</p>
+          <p>
+            Tu solicitud de verificación fue recibida. Un administrador revisará tu evidencia y
+            recibirás una respuesta pronto.
+          </p>
           <button className="btn-primary" onClick={onBack} style={{ marginTop: '8px' }}>
             Volver al inicio
           </button>
@@ -89,7 +92,10 @@ export default function SolicitarVerificacion({ onBack }: Props) {
           </div>
           <div>
             <h2 className="sol-title">Solicitar Verificación</h2>
-            <p className="sol-sub">Sube evidencias fotográficas de reparaciones que hayas realizado (antes y después) para ser verificado como Reparador Certificado.</p>
+            <p className="sol-sub">
+              Sube evidencias fotográficas de reparaciones que hayas realizado (antes y después)
+              para ser verificado como Reparador Certificado.
+            </p>
           </div>
         </div>
 
@@ -109,13 +115,14 @@ export default function SolicitarVerificacion({ onBack }: Props) {
 
         {/* Upload de imágenes */}
         <div className="sol-field">
-          <label className="sol-label">Evidencias fotográficas <span className="sol-required">*</span></label>
-          <p className="sol-hint">Sube fotos del antes y después de reparaciones que hayas realizado. Máximo 10 imágenes.</p>
+          <label className="sol-label">
+            Evidencias fotográficas <span className="sol-required">*</span>
+          </label>
+          <p className="sol-hint">
+            Sube fotos del antes y después de reparaciones que hayas realizado. Máximo 10 imágenes.
+          </p>
 
-          <div
-            className="sol-dropzone"
-            onClick={() => fileInputRef.current?.click()}
-          >
+          <div className="sol-dropzone" onClick={() => fileInputRef.current?.click()}>
             <ImageIcon size={32} color="#2d6a4f" style={{ opacity: 0.6 }} />
             <p>Haz clic para seleccionar imágenes</p>
             <span>JPG, PNG, WEBP — Máx. 10 archivos</span>
@@ -149,8 +156,14 @@ export default function SolicitarVerificacion({ onBack }: Props) {
           <button className="btn-secondary-sm" onClick={onBack} disabled={loading}>
             Cancelar
           </button>
-          <button className="btn-primary" onClick={handleSubmit} disabled={loading || files.length === 0}>
-            {loading ? 'Enviando…' : `Enviar solicitud (${files.length} ${files.length === 1 ? 'imagen' : 'imágenes'})`}
+          <button
+            className="btn-primary"
+            onClick={handleSubmit}
+            disabled={loading || files.length === 0}
+          >
+            {loading
+              ? 'Enviando…'
+              : `Enviar solicitud (${files.length} ${files.length === 1 ? 'imagen' : 'imágenes'})`}
           </button>
         </div>
       </div>

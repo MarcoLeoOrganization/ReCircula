@@ -55,7 +55,9 @@
   transition: gap 0.2s;
 }
 
-.prf-back:hover { gap: 10px; }
+.prf-back:hover {
+  gap: 10px;
+}
 
 .sol-card {
   background: var(--card-bg);
@@ -157,7 +159,9 @@
   padding: 32px 20px;
   text-align: center;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,7 +223,9 @@
   transition: background 0.2s;
 }
 
-.sol-remove-btn:hover { background: rgba(239, 68, 68, 0.85); }
+.sol-remove-btn:hover {
+  background: rgba(239, 68, 68, 0.85);
+}
 
 .sol-error {
   background: rgba(239, 68, 68, 0.08);

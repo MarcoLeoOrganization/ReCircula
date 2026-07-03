@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 /**
  * Extrae un mensaje de error legible desde respuestas de Axios/NestJS.
@@ -10,18 +10,16 @@ import axios from 'axios';
  */
 export function extractErrorMessage(err: unknown): string {
   if (axios.isAxiosError(err)) {
-    const data = err.response?.data as
-      | { message?: string | string[]; error?: string }
-      | undefined;
+    const data = err.response?.data as { message?: string | string[]; error?: string } | undefined
 
-    if (!data) return 'Error de conexión. Verifica tu red e intenta de nuevo.';
+    if (!data) return 'Error de conexión. Verifica tu red e intenta de nuevo.'
 
-    if (Array.isArray(data.message)) return data.message[0];
-    if (typeof data.message === 'string') return data.message;
-    if (typeof data.error === 'string') return data.error;
+    if (Array.isArray(data.message)) return data.message[0]
+    if (typeof data.message === 'string') return data.message
+    if (typeof data.error === 'string') return data.error
   }
 
-  if (err instanceof Error) return err.message;
+  if (err instanceof Error) return err.message
 
-  return 'Ocurrió un error inesperado.';
+  return 'Ocurrió un error inesperado.'
 }

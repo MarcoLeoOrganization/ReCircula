@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/v1/arco';
+const API_URL = 'http://localhost:3000/api/v1/arco'
 
 export const arcoService = {
   async solicitarAcceso(token: string) {
@@ -7,9 +7,9 @@ export const arcoService = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
-    if (!res.ok) throw new Error('Error al solicitar datos ARCO');
-    return res.json();
+    })
+    if (!res.ok) throw new Error('Error al solicitar datos ARCO')
+    return res.json()
   },
 
   async oponerMatchmaking(token: string, permitirMatchmaking: boolean) {
@@ -20,9 +20,9 @@ export const arcoService = {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ permitirMatchmaking }),
-    });
-    if (!res.ok) throw new Error('Error al actualizar preferencias');
-    return res.json();
+    })
+    if (!res.ok) throw new Error('Error al actualizar preferencias')
+    return res.json()
   },
 
   async cancelarCuenta(token: string) {
@@ -31,8 +31,8 @@ export const arcoService = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    });
-    if (!res.ok) throw new Error('Error al cancelar la cuenta');
-    return res.json();
+    })
+    if (!res.ok) throw new Error('Error al cancelar la cuenta')
+    return res.json()
   },
-};
+}

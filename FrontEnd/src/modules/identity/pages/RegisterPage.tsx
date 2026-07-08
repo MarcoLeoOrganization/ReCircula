@@ -468,7 +468,7 @@ export function RegisterPage() {
               style={{ fontSize: '12px', color: '#6B6B6B', lineHeight: '1.4' }}
             >
               Consiento expresamente la transferencia de mis datos a terceros (proveedores de
-              servicios, pasarelas de pago o correos) cuando sea necesario.
+              servicios o correos) cuando sea estrictamente necesario. Autorizo que estas transferencias se realicen exclusivamente a través de <strong>canales cifrados (HTTPS/mTLS) y tokens seguros</strong>.
             </label>
           </div>
 

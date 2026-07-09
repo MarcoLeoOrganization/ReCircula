@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsuarioRepository } from '../identity/repositories/usuario.repository';
+import { SesionRepository } from '../identity/repositories/sesion.repository';
 import { MailService } from '../identity/mail.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -7,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 export class ArcoService {
   constructor(
     private readonly usuarioRepo: UsuarioRepository,
+    private readonly sesionRepo: SesionRepository,
     private readonly mailService: MailService,
     private readonly config: ConfigService,
   ) {}
@@ -49,7 +51,10 @@ export class ArcoService {
     const usuario = await this.usuarioRepo.findById(usuarioId);
     if (!usuario) throw new NotFoundException('Usuario no encontrado');
 
-    // Anonimización
+    // 1. Invalidar todas las sesiones activas del usuario
+    await this.sesionRepo.invalidarTodasDeUsuario(usuarioId);
+
+    // 2. Anonimización
     await this.usuarioRepo.actualizarPorId(usuarioId, {
       nombre: 'Usuario Eliminado',
       email: `eliminado_${usuario.id}@recircula.mx`,

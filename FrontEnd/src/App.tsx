@@ -10,6 +10,7 @@ import PerfilReparador from './modules/reputation/pages/PerfilReparador'
 import SolicitarVerificacion from './modules/reputation/pages/SolicitarVerificacion'
 import ArcoDashboard from './modules/identity/pages/ArcoDashboard'
 import { useAuthStore } from './store/authStore'
+import { logout } from './modules/identity/services/identity.service'
 import { NotificationBell } from './modules/notifications/components/NotificationBell'
 import {
   Plus,
@@ -74,9 +75,15 @@ function App() {
   const [longitud, setLongitud] = useState('-101.3562')
   const [radioKm, setRadioKm] = useState('15')
 
-  const handleLogout = () => {
-    clearSession()
-    window.location.href = '/login'
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } catch (e) {
+      console.error('Error al hacer logout:', e)
+    } finally {
+      clearSession()
+      window.location.href = '/login'
+    }
   }
 
   // Obtener geolocalización cuando se activa el filtro por cercanía
@@ -257,6 +264,24 @@ function App() {
             Reparadores
           </span>
 
+          {/* Admin Dashboard: solo ADMINISTRADOR */}
+          {rol === 'ADMINISTRADOR' && (
+            <span
+              className="nav-link"
+              onClick={() => {
+                window.location.href = '/admin/dashboard'
+              }}
+              style={{
+                cursor: 'pointer',
+                color: '#9ca3af',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+              }}
+            >
+              Panel Admin
+            </span>
+          )}
+
           {/* Mi Perfil: Solo para Reparadores */}
           {rol === 'REPARADOR_VERIFICADO' ? (
             <span
@@ -276,6 +301,25 @@ function App() {
               Mi Perfil
             </span>
           ) : null}
+
+          {/* Verificarse: Solo para USUARIO_GENERAL */}
+          {rol === 'USUARIO_GENERAL' && (
+            <span
+              className="nav-link"
+              onClick={() => {
+                setView('solicitar-verificacion')
+                setMenuOpen(false)
+              }}
+              style={{
+                cursor: 'pointer',
+                color: view === 'solicitar-verificacion' ? '#2D6A4F' : '#9ca3af',
+                fontWeight: '600',
+                fontSize: '0.95rem',
+              }}
+            >
+              Verificarse
+            </span>
+          )}
 
           {/* ARCO */}
           <span

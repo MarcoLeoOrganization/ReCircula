@@ -125,13 +125,13 @@ export class ReputationService {
     files: Express.Multer.File[],
     reparadorId: string,
   ) {
-    // Solo REPARADOR_VERIFICADO puede solicitar
+    // Solo USUARIO_GENERAL puede solicitar ser reparador
     const usuario = await this.usuariosRepo.findOne({
       where: { id: reparadorId },
     });
-    if (!usuario || usuario.rol !== RolUsuario.REPARADOR_VERIFICADO) {
+    if (!usuario || usuario.rol !== RolUsuario.USUARIO_GENERAL) {
       throw new ForbiddenException(
-        'Solo los reparadores verificados pueden solicitar verificación',
+        'Solo los usuarios generales pueden solicitar verificación para ser reparadores',
       );
     }
 

@@ -60,6 +60,7 @@ import { IdentityController } from './identity.controller';
     IdentityService,
     MailService,
     UsuarioRepository,
+    SesionRepository,
     DataLifecycleService,
   ],
 })

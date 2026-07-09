@@ -1,4 +1,4 @@
-import { Shield } from 'lucide-react';
+import { Shield, Lock, FileText, Server, EyeOff, UserCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function AvisoPrivacidadPage() {
@@ -12,93 +12,119 @@ export function AvisoPrivacidadPage() {
     }}>
       <header style={{
         backgroundColor: '#2D6A4F',
-        padding: '24px',
+        padding: '32px 20px',
         color: 'white',
         textAlign: 'center',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px' }}>
-          <Shield size={32} color="#95D5B2" />
-          <h1 style={{ margin: 0, fontSize: '24px' }}>Aviso de Privacidad Integral</h1>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+          <Shield size={36} color="#95D5B2" />
+          <h1 style={{ margin: 0, fontSize: '28px', fontWeight: 'bold' }}>Aviso de Privacidad Integral</h1>
         </div>
+        <p style={{ margin: 0, color: '#D8F3DC', fontSize: '1.1rem', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>
+          En ReCircula, la protección de tu información personal es nuestra prioridad técnica y legal.
+        </p>
       </header>
       
       <main style={{
         flex: 1,
-        maxWidth: '800px',
+        maxWidth: '900px',
         margin: '0 auto',
         padding: '40px 20px',
-        color: '#1C1C1C'
+        color: '#2C3E50'
       }}>
         <div style={{
           backgroundColor: 'white',
           padding: '40px',
-          borderRadius: '12px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-          lineHeight: '1.6'
+          borderRadius: '16px',
+          boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
+          lineHeight: '1.7',
+          fontSize: '1.05rem'
         }}>
-          <p style={{ fontSize: '14px', color: '#6B6B6B', textAlign: 'right', marginBottom: '20px' }}>
+          <p style={{ fontSize: '14px', color: '#7F8C8D', textAlign: 'right', marginBottom: '30px', fontWeight: '500' }}>
             Última actualización: {new Date().toLocaleDateString('es-MX')}
           </p>
           
-          <h2 style={{ color: '#2D6A4F', borderBottom: '2px solid #E0D9CF', paddingBottom: '10px' }}>1. Identidad y Domicilio del Responsable</h2>
-          <p>
-            De conformidad con la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados,
-            ReCircula, con domicilio en [Tu Domicilio], es el responsable del tratamiento de los datos personales que nos proporcione,
-            los cuales serán protegidos conforme a lo dispuesto por dicha Ley y demás normativa que resulte aplicable.
+          <p style={{ marginBottom: '30px' }}>
+            De conformidad con lo establecido en la <strong>Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)</strong>, 
+            sus reglamentos y lineamientos, <strong>ReCircula</strong> (en adelante "El Responsable"), con domicilio en Guanajuato, México, 
+            pone a su disposición el presente Aviso de Privacidad.
           </p>
 
-          <h2 style={{ color: '#2D6A4F', borderBottom: '2px solid #E0D9CF', paddingBottom: '10px' }}>2. Datos Personales que se Recaban</h2>
-          <p>
-            Para llevar a cabo las finalidades descritas en el presente aviso de privacidad, utilizaremos los siguientes datos personales:
-          </p>
-          <ul>
-            <li>Nombre completo o razón social.</li>
-            <li>Correo electrónico.</li>
-            <li>Información de perfil público (en caso de ser reparador).</li>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '40px', marginBottom: '15px', borderBottom: '2px solid #E8F5E9', paddingBottom: '10px' }}>
+            <UserCheck color="#2D6A4F" size={24} />
+            <h2 style={{ color: '#2D6A4F', margin: 0, fontSize: '1.4rem' }}>1. Datos Personales que Recabamos</h2>
+          </div>
+          <p>Para llevar a cabo las finalidades descritas en el presente aviso, clasificamos los datos en dos categorías:</p>
+          <ul style={{ marginBottom: '20px' }}>
+            <li><strong>Usuarios Generales:</strong> Nombre completo, correo electrónico, contraseña (almacenada mediante hashing criptográfico) y preferencias de búsqueda.</li>
+            <li><strong>Reparadores Verificados:</strong> Además de lo anterior, recabamos datos de identificación oficial (INE, Pasaporte), constancia de situación fiscal (RFC) y comprobantes de domicilio estrictamente para validar su identidad y garantizar la seguridad de la comunidad.</li>
           </ul>
 
-          <h2 style={{ color: '#2D6A4F', borderBottom: '2px solid #E0D9CF', paddingBottom: '10px' }}>3. Finalidades del Tratamiento de Datos</h2>
-          <p>
-            Los datos personales que recabamos de usted, los utilizaremos para las siguientes finalidades primarias que son necesarias para el servicio que solicita:
-          </p>
-          <ul>
-            <li>Creación y gestión de su cuenta en la plataforma ReCircula.</li>
-            <li>Facilitar el contacto entre usuarios mediante el sistema de Matchmaking automatizado.</li>
-            <li>Gestión de la reputación (calificaciones y reseñas de transacciones).</li>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '40px', marginBottom: '15px', borderBottom: '2px solid #E8F5E9', paddingBottom: '10px' }}>
+            <FileText color="#2D6A4F" size={24} />
+            <h2 style={{ color: '#2D6A4F', margin: 0, fontSize: '1.4rem' }}>2. Finalidades del Tratamiento</h2>
+          </div>
+          <p>Sus datos personales serán utilizados exclusivamente para:</p>
+          <ul style={{ marginBottom: '20px' }}>
+            <li><strong>Primarias:</strong> Creación de su cuenta, autenticación segura, habilitar el sistema de <em>Matchmaking</em> para conectar donantes con reparadores, y gestionar el tablero de reputación.</li>
+            <li><strong>Secundarias:</strong> Envío de notificaciones por correo electrónico sobre el estado de sus transacciones, estadísticas de uso para mejorar la plataforma, y avisos de seguridad.</li>
           </ul>
 
-          <h2 style={{ color: '#2D6A4F', borderBottom: '2px solid #E0D9CF', paddingBottom: '10px' }}>4. Derechos ARCO</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '40px', marginBottom: '15px', borderBottom: '2px solid #E8F5E9', paddingBottom: '10px' }}>
+            <EyeOff color="#2D6A4F" size={24} />
+            <h2 style={{ color: '#2D6A4F', margin: 0, fontSize: '1.4rem' }}>3. Ejercicio de Derechos ARCO y Revocación</h2>
+          </div>
           <p>
-            Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones de uso que les damos (Acceso).
-            Asimismo, es su derecho solicitar la corrección de su información personal en caso de que esté desactualizada, sea inexacta o incompleta (Rectificación);
-            que la eliminemos de nuestros registros o bases de datos cuando considere que la misma no está siendo utilizada adecuadamente (Cancelación);
-            así como oponerse al uso de sus datos personales para fines específicos (Oposición).
+            Usted tiene derecho en todo momento a <strong>Acceder</strong> a sus datos, <strong>Rectificarlos</strong> si son inexactos, 
+            <strong>Cancelarlos</strong> (eliminarlos permanentemente del sistema) y <strong>Oponerse</strong> a su tratamiento.
           </p>
+          <div style={{ backgroundColor: '#F8F9FA', padding: '16px', borderRadius: '8px', borderLeft: '4px solid #2D6A4F', margin: '20px 0' }}>
+            <strong>Mecanismo Automatizado:</strong> ReCircula cuenta con un panel dedicado de Privacidad ARCO dentro de su perfil. 
+            Allí podrá solicitar un reporte en formato JSON de todos los datos que poseemos sobre usted (Portabilidad) o eliminar 
+            su cuenta de forma irreversible con un solo clic, sin necesidad de trámites burocráticos.
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '40px', marginBottom: '15px', borderBottom: '2px solid #E8F5E9', paddingBottom: '10px' }}>
+            <Lock color="#2D6A4F" size={24} />
+            <h2 style={{ color: '#2D6A4F', margin: 0, fontSize: '1.4rem' }}>4. Medidas de Seguridad y Criptografía</h2>
+          </div>
+          <p>Implementamos las mejores prácticas de la industria (OWASP) para proteger su información contra fugas o alteraciones:</p>
+          <ul>
+            <li><strong>Cifrado en Reposo:</strong> Los datos sensibles en la base de datos (como correos y documentos) se cifran utilizando algoritmos de grado militar (AES-256-GCM).</li>
+            <li><strong>Cifrado en Tránsito:</strong> Toda la comunicación viaja a través de túneles seguros HTTPS/TLS 1.2+.</li>
+            <li><strong>Gestión de Sesión:</strong> Sus tokens de acceso se almacenan en <em>Cookies Seguras (HttpOnly)</em>, protegiéndolo de robos por inyección de código (XSS).</li>
+          </ul>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '40px', marginBottom: '15px', borderBottom: '2px solid #E8F5E9', paddingBottom: '10px' }}>
+            <Server color="#2D6A4F" size={24} />
+            <h2 style={{ color: '#2D6A4F', margin: 0, fontSize: '1.4rem' }}>5. Uso de Cookies y Rastreo</h2>
+          </div>
           <p>
-            Para el ejercicio de cualquiera de los derechos ARCO, usted podrá hacerlo directamente desde su perfil en la sección <strong>Privacidad (ARCO)</strong> o presentar la solicitud respectiva a través del correo electrónico: privacidad@recircula.org.
+            Nuestra plataforma utiliza "Cookies" exclusivamente técnicas y de sesión. No vendemos su información a terceros ni utilizamos 
+            cookies de rastreo publicitario (Third-Party Trackers). Su información es su propiedad.
           </p>
 
-          <h2 style={{ color: '#2D6A4F', borderBottom: '2px solid #E0D9CF', paddingBottom: '10px' }}>5. Cambios al Aviso de Privacidad</h2>
-          <p>
-            El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones derivadas de nuevos requerimientos legales,
-            de nuestras propias necesidades por los servicios que ofrecemos, de nuestras prácticas de privacidad, o por otras causas.
-          </p>
-          <p>
-            Nos comprometemos a mantenerlo informado sobre los cambios que pueda sufrir el presente aviso de privacidad, a través de nuestra plataforma web.
+          <p style={{ marginTop: '50px', fontSize: '0.95rem', color: '#7F8C8D', textAlign: 'center', borderTop: '1px solid #EEEEEE', paddingTop: '30px' }}>
+            Cualquier modificación a este Aviso de Privacidad será notificada a través de la interfaz principal de la aplicación.
+            Para dudas técnicas o legales, contacte a <strong>privacidad@recircula.mx</strong>.
           </p>
           
           <div style={{ marginTop: '40px', textAlign: 'center' }}>
             <Link to="/login" style={{
-              display: 'inline-block',
-              padding: '12px 24px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '14px 28px',
               backgroundColor: '#2D6A4F',
               color: 'white',
               textDecoration: 'none',
-              borderRadius: '8px',
-              fontWeight: '600'
+              borderRadius: '30px',
+              fontWeight: '600',
+              boxShadow: '0 4px 14px rgba(45, 106, 79, 0.3)',
+              transition: 'transform 0.2s, box-shadow 0.2s'
             }}>
-              Volver al inicio
+              Entendido, volver al inicio
             </Link>
           </div>
         </div>

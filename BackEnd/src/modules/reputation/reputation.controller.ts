@@ -83,7 +83,7 @@ export class ReputationController {
 
   @Post('verificacion/solicitar')
   @UseGuards(RolesGuard)
-  @Roles(RolUsuario.REPARADOR_VERIFICADO)
+  @Roles(RolUsuario.USUARIO_GENERAL)
   @ApiBearerAuth()
   @UseInterceptors(
     FilesInterceptor('evidencias', 10, { storage: verificacionStorage }),

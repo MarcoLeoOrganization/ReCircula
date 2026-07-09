@@ -10,6 +10,7 @@ import { VerifyEmailPage } from '../modules/identity/pages/Verifyemailpage'
 import { ForgotPasswordPage } from '../modules/identity/pages/Forgotpasswordpage'
 import { ResetPasswordPage } from '../modules/identity/pages/Resetpasswordpage'
 import { AvisoPrivacidadPage } from '../modules/identity/pages/AvisoPrivacidadPage'
+import { AdminDashboard } from '../modules/identity/pages/AdminDashboard'
 
 /**
  * AppRouter — Árbol de rutas de ReCircula.
@@ -37,7 +38,7 @@ export function AppRouter() {
 
         {/* ── Rutas privadas: solo ADMINISTRADOR ─────────────────────────── */}
         <Route element={<ProtectedRoute allowedRoles={['ADMINISTRADOR']} />}>
-          <Route path="/admin/dashboard" element={<div>Panel Admin</div>} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Route>
 
         {/* ── Rutas privadas: REPARADOR_VERIFICADO o ADMINISTRADOR ─────── */}

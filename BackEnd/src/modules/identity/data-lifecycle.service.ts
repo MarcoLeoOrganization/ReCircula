@@ -20,11 +20,11 @@ export class DataLifecycleService {
   ) {}
 
   /**
-   * Se ejecuta todos los días a la medianoche.
+   * Se ejecuta CADA MINUTO (configurado para pruebas).
    * Elimina datos que ya cumplieron su finalidad para cumplir con
    * el principio de Minimización de Datos.
    */
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron('* * * * *')
   async limpiarDatosExpirados() {
     this.logger.log('Iniciando limpieza de datos expirados...');
 
@@ -49,13 +49,13 @@ export class DataLifecycleService {
       `Tokens de recuperación expirados eliminados: ${tokensEliminados.affected ?? 0}.`,
     );
 
-    // 3. Eliminar cuentas no verificadas (inactivas) que tengan más de 7 días de creadas
-    const hace7Dias = new Date();
-    hace7Dias.setDate(ahora.getDate() - 7);
+    // 3. Eliminar cuentas no verificadas (inactivas) que tengan más de 1 MINUTO de creadas (Para Pruebas)
+    const limiteExpiracion = new Date();
+    limiteExpiracion.setMinutes(ahora.getMinutes() - 1);
 
     const usuariosEliminados = await this.usuarioRepo.delete({
       emailVerificado: false,
-      fechaRegistro: LessThan(hace7Dias),
+      fechaRegistro: LessThan(limiteExpiracion),
     });
     this.logger.log(
       `Usuarios no verificados eliminados: ${usuariosEliminados.affected ?? 0}.`,

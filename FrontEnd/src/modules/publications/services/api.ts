@@ -35,14 +35,11 @@ export const publicationsApi = {
     return res.json()
   },
 
-  async createPublication(formData: FormData, token: string) {
+  async createPublication(formData: FormData) {
     const res = await fetch(`${API_BASE_URL}/publications`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        // Nota: NO definir 'Content-Type' aquí, el navegador lo definirá
-        // automáticamente junto con el boundary del multipart/form-data
-      },
+      // No mandamos headers de Authorization porque usamos cookies con `withCredentials: true`
+      // Tampoco mandamos Content-Type porque FormData lo maneja automáticamente
       body: formData,
     })
 

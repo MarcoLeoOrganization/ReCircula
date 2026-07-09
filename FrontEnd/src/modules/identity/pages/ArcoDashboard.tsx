@@ -297,11 +297,14 @@ export default function ArcoDashboard() {
             <AlertTriangle size={20} />
             <h3 style={{ fontSize: '1.1rem', fontWeight: '600' }}>Derecho de Cancelación</h3>
           </div>
-          <p style={{ color: '#991b1b', fontSize: '0.9rem', marginBottom: '1rem' }}>
+          <p style={{ color: '#991b1b', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
             Al solicitar la cancelación, tu cuenta será desactivada y todos tus datos personales
             identificables (nombre, correo) serán anonimizados de nuestros registros
             permanentemente.
           </p>
+          <div style={{ backgroundColor: '#fca5a5', padding: '10px', borderRadius: '8px', marginBottom: '1rem', color: '#7f1d1d', fontSize: '0.85rem' }}>
+            <strong>Ciclo de Vida de los Datos:</strong> Como parte de nuestra política estricta de conservación, si decides no borrar tu cuenta, el sistema cuenta con procesos programados automáticos que anonimizan los datos de usuarios inactivos o no verificados una vez que cumplen su finalidad, protegiendo así la integridad de la base de datos sin retener información innecesaria.
+          </div>
           <button
             onClick={handleCancelacion}
             disabled={loadingCancelacion}

@@ -55,35 +55,6 @@ export default function CreatePublication({
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  // Silent Login para desarrollo (RF-01)
-  useEffect(() => {
-    const fetchToken = async () => {
-      const activeUserToken = localStorage.getItem('rc_token')
-      if (activeUserToken) return
-
-      const token = localStorage.getItem('recircula_token')
-      if (!token) {
-        try {
-          const res = await fetch('/api/v1/identity/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email: 'user@recircula.mx',
-              password: 'Password123',
-            }),
-          })
-          if (res.ok) {
-            const data = await res.json()
-            localStorage.setItem('recircula_token', data.token)
-            console.log('🔑 Silent login successful for developer testing!')
-          }
-        } catch (e) {
-          console.error('Failed silent login', e)
-        }
-      }
-    }
-    fetchToken()
-  }, [])
 
   // Cargar datos en modo edición
   useEffect(() => {
@@ -201,13 +172,7 @@ export default function CreatePublication({
     setLoading(true)
     setError(null)
 
-    const token = localStorage.getItem('rc_token') || localStorage.getItem('recircula_token')
-    if (!token) {
-      setError('Debes iniciar sesión para publicar.')
-      setLoading(false)
-      return
-    }
-
+    // El token va en las cookies, no necesitamos checarlo en localStorage
     // Validar modalidad de venta
     if ((modalidad === 'VENTA' || modalidad === 'VENTA_PIEZAS') && !precio) {
       setError('Debes especificar un precio para la modalidad seleccionada.')
@@ -269,7 +234,7 @@ export default function CreatePublication({
           formData.append('imagenes', file)
         })
 
-        await publicationsApi.createPublication(formData, token)
+        await publicationsApi.createPublication(formData)
       }
       setSuccess(true)
       setError(null)

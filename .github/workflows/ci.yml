@@ -64,7 +64,7 @@ jobs:
           cd FrontEnd
           npm run build
 
-  frontend-deploy:
+ frontend-deploy:
     name: FrontEnd Deploy (Vercel)
     needs: frontend-ci
     if: github.ref == 'refs/heads/main'
@@ -72,11 +72,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./FrontEnd
-          vercel-args: '--prod'
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./FrontEnd
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./FrontEnd
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./FrontEnd

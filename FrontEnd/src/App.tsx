@@ -174,7 +174,8 @@ function App() {
 
   const getImageUrl = (url: string) => {
     if (url.startsWith('http')) return url
-    return `${url}`
+    const backendBase = (import.meta.env.VITE_API_URL ?? '').replace('/api/v1', '')
+    return `${backendBase}${url}`
   }
 
   return (

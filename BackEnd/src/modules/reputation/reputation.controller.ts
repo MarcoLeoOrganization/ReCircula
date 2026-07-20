@@ -17,9 +17,7 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { randomUUID } from 'crypto';
+import { memoryStorage } from 'multer';
 import { ReputationService } from './reputation.service';
 import { Public } from '../../common/decorators/public.decorator';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -29,14 +27,8 @@ import { CrearCalificacionDto } from './dto/crear-calificacion.dto';
 import { SolicitarVerificacionDto } from './dto/solicitar-verificacion.dto';
 import { RolUsuario } from '../identity/entities/usuario.entity';
 
-/** Configuración de multer para evidencias de verificación */
-const verificacionStorage = diskStorage({
-  destination: './uploads/verificacion',
-  filename: (_req, file, cb) => {
-    const unique = randomUUID();
-    cb(null, `${unique}${extname(file.originalname)}`);
-  },
-});
+/** Configuración de multer para evidencias de verificación (memoria para subir a Supabase) */
+const verificacionStorage = memoryStorage();
 
 @ApiTags('Reputation — RF-06')
 @Controller('reputation')

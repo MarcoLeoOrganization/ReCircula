@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MulterModule } from '@nestjs/platform-express';
 import { ReputationController } from './reputation.controller';
 import { ReputationService } from './reputation.service';
 import { Calificacion } from './entities/calificacion.entity';
@@ -12,7 +11,6 @@ import { Usuario } from '../identity/entities/usuario.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Calificacion, SolicitudVerificacion, Usuario]),
-    MulterModule.register({ dest: './uploads/verificacion' }),
     // Importamos TransactionsModule para reutilizar TransactionsRepository
     // y verificar el estado de la transacción antes de calificar
     TransactionsModule,

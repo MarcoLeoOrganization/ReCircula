@@ -19,6 +19,7 @@ import { MatchmakingModule } from './modules/matchmaking/matchmaking.module';
 import { ReputationModule } from './modules/reputation/reputation.module';
 import { ArcoModule } from './modules/arco/arco.module';
 import { HealthModule } from './modules/health/health.module';
+import { SupabaseStorageModule } from './modules/storage/supabase-storage.module';
 
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
@@ -83,6 +84,9 @@ import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor
 
     // ── RF-08: Derechos ARCO del Usuario ─────────────────────────────────────
     ArcoModule,
+
+    // ── Almacenamiento en Supabase Storage (global) ──────────────────────────
+    SupabaseStorageModule,
 
     // ── Monitoreo y Salud ────────────────────────────────────────────────────
     HealthModule,

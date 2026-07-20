@@ -17,30 +17,20 @@ import { Componente } from './entities/component.entity';
 import { ImagenPublicacion } from './entities/image.entity';
 import { EstadoPublicacion, ModalidadIntercambio } from '../../common/types';
 import { PublicationCreatedEvent } from '../../common/events';
-import * as fs from 'fs';
-import * as path from 'path';
 import * as crypto from 'crypto';
+import * as path from 'path';
+import { SupabaseStorageService } from '../storage/supabase-storage.service';
 
 @Injectable()
 export class PublicationsService {
   private readonly logger = new Logger(PublicationsService.name);
-  private readonly uploadDir = path.join(
-    process.cwd(),
-    'public',
-    'uploads',
-    'publications',
-  );
 
   constructor(
     private readonly repo: PublicationsRepository,
     private readonly entityManager: EntityManager,
     private readonly eventEmitter: EventEmitter2,
-  ) {
-    // Asegurarse de que el directorio de subidas exista
-    if (!fs.existsSync(this.uploadDir)) {
-      fs.mkdirSync(this.uploadDir, { recursive: true });
-    }
-  }
+    private readonly storageService: SupabaseStorageService,
+  ) {}
 
   async crear(
     dto: CreatePublicationDto,
@@ -97,14 +87,18 @@ export class PublicationsService {
         );
       }
 
-      // Guardar localmente
+      // Subir a Supabase Storage
       const ext = path.extname(img.originalname).toLowerCase();
       const randomName = crypto.randomUUID() + ext;
-      const filepath = path.join(this.uploadDir, randomName);
-      fs.writeFileSync(filepath, img.buffer);
+      const publicUrl = await this.storageService.uploadFile(
+        'publications',
+        randomName,
+        img.buffer,
+        img.mimetype,
+      );
 
       const dbImg = new ImagenPublicacion();
-      dbImg.url = `/uploads/publications/${randomName}`;
+      dbImg.url = publicUrl;
       dbImg.esPrincipal = i === 0; // La primera es la principal (miniatura) (RF-02.3 Criterio 3)
       dbImg.orden = i;
       entidadImagenes.push(dbImg);

@@ -13,6 +13,9 @@ import { SolicitarVerificacionDto } from './dto/solicitar-verificacion.dto';
 import { EstadoTransaccion, EstadoVerificacion } from '../../common/types';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as crypto from 'crypto';
+import * as path from 'path';
+import { SupabaseStorageService } from '../storage/supabase-storage.service';
 import { Usuario, RolUsuario } from '../identity/entities/usuario.entity';
 import {
   ReputationRatingCreatedEvent,
@@ -28,6 +31,7 @@ export class ReputationService {
     @InjectRepository(Usuario)
     private readonly usuariosRepo: Repository<Usuario>,
     private readonly eventEmitter: EventEmitter2,
+    private readonly storageService: SupabaseStorageService,
   ) {}
 
   // ── RF-06.1 — Calificar contraparte ────────────────────────────────────────
@@ -135,8 +139,19 @@ export class ReputationService {
       );
     }
 
-    // Mapear archivos a URLs relativas (multer ya los guardó en /uploads/verificacion/)
-    const evidencias = files.map((f) => `/uploads/verificacion/${f.filename}`);
+    // Subir archivos a Supabase Storage y obtener URLs públicas
+    const evidencias: string[] = [];
+    for (const file of files) {
+      const ext = path.extname(file.originalname).toLowerCase();
+      const filename = crypto.randomUUID() + ext;
+      const url = await this.storageService.uploadFile(
+        'verificacion',
+        filename,
+        file.buffer,
+        file.mimetype,
+      );
+      evidencias.push(url);
+    }
 
     const solicitud = await this.repo.crearSolicitudVerificacion({
       reparadorId,

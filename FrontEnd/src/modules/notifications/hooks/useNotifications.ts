@@ -45,8 +45,8 @@ export function useNotifications(token: string | null) {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchAll()
 
-    const url = `${API_BASE}/notifications/stream?token=${token}`
-    const eventSource = new EventSource(url)
+    const url = `${API_BASE}/notifications/stream`
+    const eventSource = new EventSource(url, { withCredentials: true })
 
     eventSource.onmessage = (event) => {
       try {

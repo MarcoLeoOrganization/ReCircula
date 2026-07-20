@@ -1,5 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import * as WS from 'ws';
+
+// Polyfill de WebSocket para Node.js < 22 (necesario para @supabase/supabase-js)
+if (typeof globalThis.WebSocket === 'undefined') {
+  (globalThis as unknown as Record<string, unknown>).WebSocket = WS;
+}
 
 /**
  * Servicio global para subir y eliminar archivos en Supabase Storage.

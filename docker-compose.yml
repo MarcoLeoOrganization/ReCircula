@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgis/postgis:15-3.3-alpine
@@ -23,6 +21,8 @@ services:
     build:
       context: ./BackEnd
       dockerfile: Dockerfile
+    env_file:
+      - ./BackEnd/.env
     # Eliminamos 'container_name' para permitir el escalado horizontal (docker compose up --scale backend=N)
     restart: always
     # No exponemos el puerto 3000 del backend directamente al host para evitar conflictos al escalar
@@ -32,11 +32,17 @@ services:
       - PORT=3000
       - DB_HOST=db
       - DB_PORT=5432
+      - DB_USER=postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=marco
+      - DB_NAME=ReCircula
       - DB_DATABASE=ReCircula
+      - DB_SSL=false
+      - EXTERNAL_DATABASE_URL=
+      - NODE_ENV=development
       - JWT_SECRET=super_secret_key
       - CORS_ORIGIN=*
+      - APP_URL=http://localhost
     depends_on:
       db:
         condition: service_healthy

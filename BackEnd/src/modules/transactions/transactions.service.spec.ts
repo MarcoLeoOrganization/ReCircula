@@ -112,6 +112,10 @@ describe('TransactionsService', () => {
       await expect(service.proponer(dto, 'owner-id')).rejects.toThrow(
         BadRequestException,
       );
+
+      expect(mockTransactionsRepository.create).not.toHaveBeenCalled();
+      expect(mockTransactionsRepository.saveAuditLog).not.toHaveBeenCalled();
+      expect(mockEventEmitter.emit).not.toHaveBeenCalled();
     });
 
     it('debe lanzar BadRequestException si es venta y no se acuerda un precio', async () => {

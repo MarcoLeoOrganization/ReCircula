@@ -37,7 +37,10 @@ describe('IdentityService', () => {
 
   const mockSesionRepository = {
     crear: jest.fn(),
-    invalidarPorTokenHash: jest.fn(),
+    findByTokenHash: jest.fn(),
+    invalidar: jest.fn(),
+    invalidarTodasDeUsuario: jest.fn(),
+    esSesionValida: jest.fn(),
   };
 
   const mockTokenRecuperacionRepository = {
@@ -123,6 +126,9 @@ describe('IdentityService', () => {
       };
 
       await expect(service.registrar(dto)).rejects.toThrow(ConflictException);
+      expect(mockUsuarioRepository.crear).not.toHaveBeenCalled();
+      expect(mockMailService.enviarVerificacion).not.toHaveBeenCalled();
+      expect(bcrypt.hash).not.toHaveBeenCalled();
     });
 
     it('debe registrar el usuario, crear perfil de reparador si aplica, y enviar correo', async () => {
@@ -316,10 +322,8 @@ describe('IdentityService', () => {
   describe('logout', () => {
     it('debe invalidar sesión si existe y está activa', async () => {
       const mockSesion = { id: 'sesion-id', invalidado: false };
-      mockSesionRepository.findByTokenHash = jest
-        .fn()
-        .mockResolvedValue(mockSesion);
-      mockSesionRepository.invalidar = jest.fn().mockResolvedValue({});
+      mockSesionRepository.findByTokenHash.mockResolvedValue(mockSesion);
+      mockSesionRepository.invalidar.mockResolvedValue(undefined);
 
       const res = await service.logout('some-token');
       expect(res.mensaje).toContain('Sesión cerrada');
@@ -329,7 +333,7 @@ describe('IdentityService', () => {
 
   describe('esSesionValida', () => {
     it('debe delegar en el repositorio de sesiones', async () => {
-      mockSesionRepository.esSesionValida = jest.fn().mockResolvedValue(true);
+      mockSesionRepository.esSesionValida.mockResolvedValue(true);
       const res = await service.esSesionValida('some-hash');
       expect(res).toBe(true);
       expect(mockSesionRepository.esSesionValida).toHaveBeenCalledWith(

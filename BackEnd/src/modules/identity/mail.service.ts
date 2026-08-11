@@ -27,7 +27,7 @@ export class MailService {
     nombre: string,
     token: string,
   ): Promise<void> {
-    const frontUrl = 'http://localhost:5173'; // Redirigir al Frontend
+    const frontUrl = this.config.get<string>('FRONTEND_URL') || 'http://localhost:5173';
     const enlace = `${frontUrl}/verify-email?token=${token}`;
     await this.send(
       to,
@@ -42,7 +42,7 @@ export class MailService {
     nombre: string,
     token: string,
   ): Promise<void> {
-    const frontUrl = 'http://localhost:5173'; // Redirigir al Frontend
+    const frontUrl = this.config.get<string>('FRONTEND_URL') || 'http://localhost:5173';
     const enlace = `${frontUrl}/reset-password?token=${token}`;
     await this.send(
       to,
